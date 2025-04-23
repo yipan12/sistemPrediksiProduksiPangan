@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PrediksiController;
 use App\Http\Controllers\RegistrasiController;
+use App\Http\Controllers\ProduksiPanganController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,14 @@ Route::post('/logout', [LoginController::class, 'logout']);
 // register
 Route::get('/register', [RegistrasiController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegistrasiController::class, 'store']);
+// data
+// routes/web.php
+Route::resource('produksi', ProduksiPanganController::class)->middleware('auth');
+// route prediksi
+Route::get('prediksi', [PrediksiController::class, 'index'])->middleware('auth')->name('prediksi-pangan');
+route::post('prediksi', [PrediksiController::class, 'prediksi'])->middleware('auth')->name('prediksi-pangan2');
+
+
 
 
 

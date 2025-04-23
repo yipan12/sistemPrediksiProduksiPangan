@@ -7,15 +7,85 @@
     <title>Halaman || {{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    {{-- style --}}
+    <style>
+        body {
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            transition: margin-left 0.3s ease;
+        }
+        .sidebar.collapsed {
+            margin-left: -250px;
+        } 
+        .main {
+            transition: margin-left 0.3s ease;
+            width: 100%;
+        }
+    
+        .main.full {
+            margin-left: 0;
+        }
+    
+        .main:not(.full) {
+            margin-left: 250px;
+        }    
+        .navbar {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .text-gradient{
+            background: linear-gradient(90deg, #1698e9, #1655e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+        }
+    </style>
+    
+    {{-- akhir style --}}
 </head>
 <body>
-    <div class="d-flex">
-        @include('partials.navbar') 
-        
-        <div class="flex-grow-1 p-4">
-            @yield('content') 
+    
+    <body>
+        <div class="wrapper d-flex">
+            {{-- Sidebar --}}
+            @include('partials.sidebar')
+    
+            {{-- Main Section (Navbar + Content) --}}
+            <div class="main flex-grow-1">
+                {{-- Navbar --}}
+                <nav class="navbar navbar-dark bg-white shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211)">
+                    <div class="container-fluid">
+                        <button class="btn btn-light" id="toggleSidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <span class="navbar-brand ms-3 text-black">Sistem Prediksi Produksi</span>
+                    </div>
+                </nav>
+    
+                {{-- Konten --}}
+                <div class="content p-4" id="mainContent">
+                    @yield('content')
+                </div>
+            </div>
         </div>
-    </div>
+    
+
+
+    <script>
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const main = document.querySelector('.main');
+
+        
+    
+        toggleBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+            main.classList.toggle('full');
+        });
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 
     
