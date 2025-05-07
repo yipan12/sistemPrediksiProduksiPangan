@@ -13,7 +13,7 @@ class ProduksiPanganController extends Controller
     public function index()
     {
 
-        $produksiPangan =\App\Models\ProduksiPangan::latest()->get();
+        $produksiPangan = \App\Models\ProduksiPangan::orderBy('created_at', 'desc')->paginate(12);
         return view('produksi.index', [
             'title' => 'Historis',
             'produksiPangan' => $produksiPangan

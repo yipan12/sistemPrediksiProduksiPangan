@@ -7,16 +7,17 @@ use Illuminate\Http\Request;
 
 class PrediksiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $komoditas = ProduksiPangan::distinct()->pluck('produk');
-        return view('prediksi.index', 
+        return view('prediksi.movingArage', 
         [
             'title' => 'Prediksi',
-            'komoditas' => $komoditas
+            'komoditas' => $komoditas,
+            'produk' => null,
+            'dataTerakhir' => collect(),
+            'prediksi' => null,
         ]
     );
     }
@@ -32,52 +33,54 @@ class PrediksiController extends Controller
         ->pluck('jumlah');
 
         $prediksi = $dataTerakhir->count() > 0 ? round($dataTerakhir->avg()) : 0 ;
-        return view('prediksi.index', compact('produk', 'dataTerakhir', 'prediksi', 'komoditas', 'title'));
+        return view('prediksi.movingArage', compact('produk', 'dataTerakhir', 'prediksi', 'komoditas', 'title'));
     }
 
-
-    public function create()
-    {
-        //
+    public function linearRegresionView(){
+        $komoditas = ProduksiPangan::distinct()->pluck('produk');
+        return view('prediksi.LinearRegresion', [
+            'title' => 'Prediksi LinearRegresion',
+            'komoditas' => $komoditas
+        ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    public function linearRegresion(Request $request) {
+        $title = 'linearRegresion';
+        $produk = $request->input('produk');
+        $komoditas = ProduksiPangan::distinct()->pluck('produk');
+        
+        $dataRecords = ProduksiPangan::where('produk', $produk)
+            ->orderBy('tanggal')
+            ->get(['tanggal', 'jumlah']);
+        
+        if ($dataRecords->count() == 0) {
+            return back()->with('eror', 'Maaf data produksi tidak cukup untuk di prediksi');
+        }
+        
+        $x = [];
+        $y = [];
+        $i = 1;
+        
+        foreach ($dataRecords as $row) {
+            $x[] = $i++; // Menambahkan ke array, bukan menimpa
+            $y[] = $row->jumlah;
+        }
+        
+        $n = count($x);
+        $sum_x = array_sum($x);
+        $sum_y = array_sum($y);
+        $sum_xy = 0;
+        $sum_x2 = 0;
+        
+        for ($j = 0; $j < $n; $j++) {
+            $sum_xy += $x[$j] * $y[$j];
+            $sum_x2 += $x[$j] * $x[$j];
+        }
+        
+        $b = ($n * $sum_xy - $sum_x * $sum_y) / ($n * $sum_x2 - $sum_x * $sum_x);
+        $a = ($sum_y - $b * $sum_x) / $n;
+        $x_prediksi = $n + 1;
+        $prediksi = round($a + $b * $x_prediksi);
+        
+        return view('prediksi.LinearRegresion', compact('produk', 'dataRecords', 'komoditas', 'prediksi', 'title'));
     }
 }

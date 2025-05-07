@@ -55,7 +55,7 @@
             {{-- Main Section (Navbar + Content) --}}
             <div class="main flex-grow-1">
                 {{-- Navbar --}}
-                <nav class="navbar navbar-dark bg-white shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211)">
+                <nav class="navbar navbar-dark bg-white  shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211);">
                     <div class="container-fluid">
                         <button class="btn btn-light" id="toggleSidebar">
                             <i class="fas fa-bars"></i>
@@ -73,18 +73,30 @@
     
 
 
-    <script>
-        const toggleBtn = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
-        const main = document.querySelector('.main');
-
+        <script>
+            const toggleBtn = document.getElementById('toggleSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const main = document.querySelector('.main');
         
-    
-        toggleBtn.addEventListener('click', function () {
-            sidebar.classList.toggle('collapsed');
-            main.classList.toggle('full');
-        });
-    </script>
+           
+            window.addEventListener('DOMContentLoaded', () => {
+                const status = localStorage.getItem('sidebarStatus');
+                if (status === 'collapsed') {
+                    sidebar.classList.add('collapsed');
+                    main.classList.add('full');
+                }
+            });
+        
+            
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                main.classList.toggle('full');
+        
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarStatus', isCollapsed ? 'collapsed' : 'expanded');
+            });
+        </script>
+        
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistorisController;
 use App\Http\Controllers\PrediksiController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\ProduksiPanganController;
@@ -36,7 +37,12 @@ Route::post('/register', [RegistrasiController::class, 'store']);
 Route::resource('produksi', ProduksiPanganController::class)->middleware('auth');
 // route prediksi
 Route::get('prediksi', [PrediksiController::class, 'index'])->middleware('auth')->name('prediksi-pangan');
+Route::get('linearRegresionView', [PrediksiController::class, 'linearRegresionView'])->middleware('auth')->name('linearView');
 route::post('prediksi', [PrediksiController::class, 'prediksi'])->middleware('auth')->name('prediksi-pangan2');
+route::post('linearRegresion', [PrediksiController::class, 'linearRegresion'])->middleware('auth')->name('prediksi-linear');
+// historis
+route::post('store', [HistorisController::class, 'store'])->middleware('auth')->name('simpanMovingArrage');
+route::get('index', [HistorisController::class, 'index'])->middleware('auth')->name('MovingarageIndex');
 
 
 
