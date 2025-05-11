@@ -15,7 +15,9 @@ return new class extends Migration
         Schema::create('History', function (Blueprint $table) {
             $table->id();
             $table->string('produk');
-            $table->string('jumlah_sebelumnya');
+            $table->integer('jumlah_1');
+            $table->integer('jumlah_2');
+            $table->integer('jumlah_3');
             $table->integer('prediksi');
             $table->timestamp('tanggal_prediksi')->default(DB::raw('CURRENT_TIMESTAMP'));
 

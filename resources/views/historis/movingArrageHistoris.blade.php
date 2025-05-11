@@ -17,18 +17,22 @@
         @foreach ($historis as $key => $data )
 
         <tr>
-           <td>1</td>
-           <td>Jagun</td>
-           <td>9,899</td>
-           <td>333</td>
-           <td>222</td>
-           <td>4,848</td>
-           <td>12 05 2025</td>
+           <td>{{ $historis->total() - $historis->firstItem() - $key + 1 }}</td>
+           <td>{{ $data->produk }}</td>
+           <td>{{ $data->jumlah_1 }}</td>
+           <td>{{ $data->jumlah_2 }}</td>
+           <td>{{ $data->jumlah_3 }}</td>
+           <td>{{ $data->prediksi }}</td>
+           <td>{{ $data->tanggal_prediksi }}</td>
         </tr>
-        </tr>
-        
-            
+        </tr>    
         @endforeach
     </tbody>
-</table></div>
+</table>
+
+<div class="d-flex justify-content-end active ">
+    {{ $historis->links() }}
+</div>
+
+</div>
 @endsection

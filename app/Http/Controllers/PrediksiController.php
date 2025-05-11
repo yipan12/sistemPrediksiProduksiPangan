@@ -30,7 +30,9 @@ class PrediksiController extends Controller
         $dataTerakhir = ProduksiPangan::where('produk', $produk)
         ->orderBy('tanggal', 'desc')
         ->take(3)
-        ->pluck('jumlah');
+        ->pluck('jumlah')
+        ->reverse() 
+        ->values();
 
         $prediksi = $dataTerakhir->count() > 0 ? round($dataTerakhir->avg()) : 0 ;
         return view('prediksi.movingArage', compact('produk', 'dataTerakhir', 'prediksi', 'komoditas', 'title'));

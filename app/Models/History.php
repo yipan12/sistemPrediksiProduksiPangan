@@ -11,7 +11,9 @@ class History extends Model
     protected $table = 'history';
     protected $fillable  = [
         'produk',
-        'jumlah_sebelumnya',
+        'jumlah_1',
+        'jumlah_2',
+        'jumlah_3',
         'prediksi'
     ];
     public $timestamps = false; 

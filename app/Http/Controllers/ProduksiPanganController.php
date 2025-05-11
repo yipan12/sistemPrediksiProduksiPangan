@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\ProduksiPangan;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,12 @@ class ProduksiPanganController extends Controller
      */
     public function index()
     {
-
+        $history = \App\Models\History::get()->count();
         $produksiPangan = \App\Models\ProduksiPangan::orderBy('created_at', 'desc')->paginate(12);
         return view('produksi.index', [
             'title' => 'Historis',
-            'produksiPangan' => $produksiPangan
+            'produksiPangan' => $produksiPangan,
+            'history' => $history
         ]);
     }
 

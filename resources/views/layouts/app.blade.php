@@ -41,6 +41,14 @@
             -webkit-text-fill-color: transparent;
             
         }
+
+        .skyblue-custoom{
+            background-color: #C8E8FF;
+        }
+        .skyblue-custoom:hover{
+            background-color: #C8E8FF;
+            border: 1px solid #C8E8FF; 
+        }
     </style>
     
     {{-- akhir style --}}

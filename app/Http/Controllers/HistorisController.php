@@ -12,7 +12,7 @@ class HistorisController extends Controller
      */
     public function index()
     {
-        $historis = \App\Models\History::orderBy('tanggal_prediksi', 'desc')->get();
+        $historis = \App\Models\History::orderBy('tanggal_prediksi', 'desc')->paginate(12);
         return view('historis.movingArrageHistoris', [
             'title' => 'Hasil Prediksi',
             'historis' => $historis
@@ -32,7 +32,9 @@ class HistorisController extends Controller
     {
         $validatedData = $request->validate([
             'produk' => 'required',
-            'jumlah_sebelumnya' => 'required',
+            'jumlah_1' => 'required|integer',
+            'jumlah_2' => 'required|integer',
+            'jumlah_3' => 'required|integer',
             'prediksi' => 'required'
         ]);
         History::create($validatedData);

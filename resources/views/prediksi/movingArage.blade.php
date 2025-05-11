@@ -2,6 +2,7 @@
 @section('content')
 <div class="container mt-4">
 
+
     {{-- CHART SECTION --}}
     <div class="card">
         <div class="card-header bg-dark text-white">
@@ -34,9 +35,10 @@
                 <form action="{{ route('simpanMovingArrage') }}" method="post" class="w-25">
                     @csrf
                     <input type="hidden" name="produk" value="{{ $produk }}">
-                    <input type="hidden" name="jumlah_sebelumnya" value="{{ implode(',', $dataTerakhir->toArray()) }}">
+                    <input type="hidden" name="jumlah_1" value="{{ $dataTerakhir[0] ?? '' }}">
+                    <input type="hidden" name="jumlah_2" value="{{ $dataTerakhir[1] ?? '' }}">
+                    <input type="hidden" name="jumlah_3" value="{{ $dataTerakhir[2] ?? '' }}">
                     <input type="hidden" name="prediksi" value="{{ $prediksi }}">
-                    <label for="button">Simpan Prediksi</label>
                     <button type="submit" class="btn btn-success form-control">Simpan</button>
                 </form>
             </div>
@@ -53,7 +55,11 @@
     const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [], 
+            labels: {!! json_encode(
+                    collect($dataTerakhir)->map(function($item, $index) {
+                        return 'Data ' . ($index + 1);
+                    })->toArray()
+                ) !!},
             datasets: [
                 {
                     label: 'Data Historis',
