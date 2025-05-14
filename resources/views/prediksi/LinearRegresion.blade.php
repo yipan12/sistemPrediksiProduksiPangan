@@ -15,6 +15,8 @@
         <div class="card-body">
             <canvas width="600" height="300" id="chartPrediksi" style="max-width: 100%;"></canvas>
         </div>
+        {{-- chart line --}}
+        {{-- akhir chart line --}}
         {{-- form section --}}
         <div class="card-body row">
             <div class="col-md-6">
@@ -48,6 +50,11 @@
 
     {{-- Chart JS --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- akhir chars js --}}
+
+
+
+{{-- chart bar --}}
 <script>
     const ctx = document.getElementById('chartPrediksi').getContext('2d');
     

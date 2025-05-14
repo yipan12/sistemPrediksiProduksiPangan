@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('History', function (Blueprint $table) {
+        Schema::create('history', function (Blueprint $table) {
             $table->id();
             $table->string('produk');
             $table->integer('jumlah_1');
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('prediksi');
             $table->timestamp('tanggal_prediksi')->default(DB::raw('CURRENT_TIMESTAMP'));
 
+            // Menambahkan kolom user_id sebagai foreign key
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Menambahkan foreign key ke tabel 'users'
         });
     }
 

@@ -6,9 +6,14 @@
 @endphp
 
 
-<div id="sidebar" class="bg-white text-black border  vh-100 p-3 sidebar position-fixed">
-    <h4 class="text-black mb-4 text-center text-bold text-gradient">{{ Auth::user()->name }}</h4>
-    <ul class="nav flex-column">
+<div id="sidebar" class="bg-white text-black border  vh-100 p-3 sidebar position-fixed" >
+    {{-- acount --}}
+    <div class="w-full mt-2 poppins">
+         <i class="fas fa-user text-center d-block mb-2 fs-2 text-gradient"></i>
+         <h4 class="text-black mb-4 text-center text-bold text-gradient">{{ Auth::user()->name }}</h4>
+    </div>
+    {{-- akhir acount --}}
+    <ul class="nav flex-column ">
         <h4 class="fs-5 fw-normal ms-2 mb-3">Menu utama</h4>
         <li class="nav-item mb-2">
             <a class="nav-link  {{ $activeClass('Dashboard') }}" href="/dashboard">

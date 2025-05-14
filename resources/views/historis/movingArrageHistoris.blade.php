@@ -1,12 +1,18 @@
 @extends('layouts.app')
 @section('content')
+
+@if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+ @endif
 <div class="card card-body shadow">
-    <table class="table ">
-    <thead>
+    <table class="table table-bordered ">
+    <thead class="table-success">
         <tr>
-            <th>Id</th>
-            <th>Produk</th>
-            <th>Produksi 1</th>
+            <th class="text-center">No</th>
+            <th class="text-center">Produk</th>
+            <th>    Produksi 1</th>
             <th>Produksi 2</th>
             <th>Produksi 3</th>
             <th>Hasil Prediksi</th>
@@ -17,7 +23,7 @@
         @foreach ($historis as $key => $data )
 
         <tr>
-           <td>{{ $historis->total() - $historis->firstItem() - $key + 1 }}</td>
+           <td class="text-center">{{ $historis->total() - $historis->firstItem() - $key + 1 }}</td>
            <td>{{ $data->produk }}</td>
            <td>{{ $data->jumlah_1 }}</td>
            <td>{{ $data->jumlah_2 }}</td>

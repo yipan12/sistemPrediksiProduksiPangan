@@ -12,7 +12,6 @@
                 <img src="{{ asset('asset/undraw_online-banking_l9sn.png') }}"
                      class="w-75" alt="Sample image">
             </div>
-
             <!-- Form -->
             <div class="col-lg-5 d-flex flex-column justify-content-start ">
                 

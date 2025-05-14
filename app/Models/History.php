@@ -14,7 +14,14 @@ class History extends Model
         'jumlah_1',
         'jumlah_2',
         'jumlah_3',
-        'prediksi'
+        'prediksi',
+        'user_id'
+        
     ];
     public $timestamps = false; 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

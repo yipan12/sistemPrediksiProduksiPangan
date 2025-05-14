@@ -13,8 +13,10 @@ class ProduksiPanganController extends Controller
      */
     public function index()
     {
-        $history = \App\Models\History::get()->count();
-        $produksiPangan = \App\Models\ProduksiPangan::orderBy('created_at', 'desc')->paginate(12);
+        $history = \App\Models\History::where('user_id', auth()->id())->count();
+        $produksiPangan = \App\Models\ProduksiPangan::where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->paginate(12);
         return view('produksi.index', [
             'title' => 'Historis',
             'produksiPangan' => $produksiPangan,
@@ -46,6 +48,7 @@ class ProduksiPanganController extends Controller
         'harga' => 'required|numeric'
        ]);
 
+       $validatedData['user_id'] = auth()->id(); 
        ProduksiPangan::create($validatedData);
        return redirect()->route('produksi.index')->with('status', 'Data berhasil ditambah!');
     }

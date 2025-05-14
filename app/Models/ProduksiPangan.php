@@ -14,7 +14,11 @@ class ProduksiPangan extends Model
         'produk',
         'jumlah',
         'tanggal',
-        'harga'
+        'harga',
+        'user_id'
 
     ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

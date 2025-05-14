@@ -12,12 +12,15 @@ class HistorisController extends Controller
      */
     public function index()
     {
-        $historis = \App\Models\History::orderBy('tanggal_prediksi', 'desc')->paginate(12);
+         $historis = \App\Models\History::where('user_id', auth()->id())
+                    ->orderBy('tanggal_prediksi', 'desc')
+                    ->paginate(12);
         return view('historis.movingArrageHistoris', [
             'title' => 'Hasil Prediksi',
             'historis' => $historis
         ]);
     }
+
 
     
     public function create()
@@ -29,17 +32,22 @@ class HistorisController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'produk' => 'required',
-            'jumlah_1' => 'required|integer',
-            'jumlah_2' => 'required|integer',
-            'jumlah_3' => 'required|integer',
-            'prediksi' => 'required'
-        ]);
-        History::create($validatedData);
-
-    }
+{
+    $validatedData = $request->validate([
+        'produk' => 'required',
+        'jumlah_1' => 'required|integer',
+        'jumlah_2' => 'required|integer',
+        'jumlah_3' => 'required|integer',
+        'prediksi' => 'required'
+    ]);
+    
+    // Tambahkan user_id dari user yang sedang login
+    $validatedData['user_id'] = auth()->id();
+    
+    History::create($validatedData);
+    
+    return redirect()->route('MovingarageIndex')->with('status', 'prediksi berhasil di simpan');
+}
 
     /**
      * Display the specified resource.

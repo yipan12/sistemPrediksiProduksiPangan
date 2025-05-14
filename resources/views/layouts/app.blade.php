@@ -7,8 +7,13 @@
     <title>Halaman || {{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     {{-- style --}}
     <style>
+        .poppins{
+            font-family: 'Poppins', sans-serif;
+        }
         body {
             margin: 0;
         }
@@ -48,6 +53,21 @@
         .skyblue-custoom:hover{
             background-color: #C8E8FF;
             border: 1px solid #C8E8FF; 
+        }
+        /* Tambahkan di file CSS Anda */
+        .pagination .page-link {
+            color: #28a745; /* Warna hijau Bootstrap */
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .pagination .page-link:hover {
+            color: #218838; /* Hijau gelap saat hover */
+            background-color: #e9ecef;
         }
     </style>
     
