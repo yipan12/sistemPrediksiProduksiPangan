@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('jumlah_3');
             $table->integer('prediksi');
             $table->timestamp('tanggal_prediksi')->default(DB::raw('CURRENT_TIMESTAMP'));
-
             // Menambahkan kolom user_id sebagai foreign key
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Menambahkan foreign key ke tabel 'users'
         });

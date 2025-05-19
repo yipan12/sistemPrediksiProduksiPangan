@@ -9,7 +9,7 @@
         <div class="row g-3">
             <div class="col-md-4">
                 <div class="card shadow-lg h-100">
-                    <img src="{{ asset("asset/undraw_organizing-data_uns9.svg") }}" class="card-img-top w-75 mx-auto mt-4" alt="...">
+                    <img src="{{ asset("/asset/movingarrage.png") }}" class="card-img-top w-75 mx-auto mt-4" alt="...">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title fs-5 fw-bold">Moving Average</h5> 
@@ -20,14 +20,19 @@
                     </div>
                 </div>
             </div>
-            
+            {{-- linear regresion tabel --}}
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                    <img src="{{ asset("asset/undraw_data-trends_kv5v.svg") }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title fs-6">Moving Average</h5>
-                        <a href="{{ route('MovingarageIndex') }}" class="btn btn-primary">Lihat</a>
-                    </div>
+                    <div class="card shadow-lg h-100">
+                        <img src="{{ asset("/asset/undraw_users-per-minute_eg97.png") }}" class="card-img-top  mx-auto mt-5" alt="...">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mt-4">
+                                <h5 class="card-title fs-5 fw-bold">Linear Regresion</h5>
+                                <p class="btn skyblue-custoom text-white fw-bold">{{ $historylr }}  Hasil Prediksi<p>
+                            </div>
+                            <p class="mt-1">Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
+                            <a href="{{ route('LrIndex') }}" class="btn btn-success btn-sm">Lihat Lebih</a>
+                        </div>
+                    
                 </div>
             </div>
             

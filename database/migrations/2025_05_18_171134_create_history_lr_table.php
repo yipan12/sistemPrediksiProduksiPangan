@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('produksi_pangan', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::create('historyLr', function (Blueprint $table) {
+            $table->id();
+            $table->string('produk');
+            $table->string('periode_prediksi');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -21,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('produksi_pangan', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('historyLr');
     }
 };

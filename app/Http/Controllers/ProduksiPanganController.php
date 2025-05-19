@@ -8,25 +8,24 @@ use Illuminate\Http\Request;
 
 class ProduksiPanganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    // index
     public function index()
     {
         $history = \App\Models\History::where('user_id', auth()->id())->count();
+        $historylr = \App\Models\Historylr::where('user_id', auth()->id())->count();
         $produksiPangan = \App\Models\ProduksiPangan::where('user_id', auth()->id())
         ->orderBy('created_at', 'desc')
         ->paginate(12);
         return view('produksi.index', [
             'title' => 'Historis',
             'produksiPangan' => $produksiPangan,
-            'history' => $history
+            'history' => $history,
+            'historylr' => $historylr
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+//    create
     public function create()
     {
         
@@ -36,9 +35,6 @@ class ProduksiPanganController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
        $validatedData = $request->validate([
@@ -52,18 +48,7 @@ class ProduksiPanganController extends Controller
        ProduksiPangan::create($validatedData);
        return redirect()->route('produksi.index')->with('status', 'Data berhasil ditambah!');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ProduksiPangan $produksiPangan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+// edit
     public function edit($id)
     {
         $produksiPangan = ProduksiPangan::findOrFail($id);
@@ -73,9 +58,6 @@ class ProduksiPanganController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request,  $id)
     {
         $validatedData = $request->validate([
@@ -88,13 +70,14 @@ class ProduksiPanganController extends Controller
         ProduksiPangan::findOrFail($id)->update($validatedData);
         return redirect()->route('produksi.index')->with('status', 'Update berhasil');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+// hapus
     public function destroy(ProduksiPangan $produksiPangan, $id)
     {
         ProduksiPangan::findOrfail($id)->delete($id);
         return redirect()->route('produksi.index')->with('status', 'data berhasil di hapus');
+    }
+// private method
+    private function checkAndSaveAkurasi($produk){
+        
     }
 }

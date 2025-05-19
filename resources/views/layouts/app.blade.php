@@ -9,6 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     {{-- style --}}
     <style>
         .poppins{
@@ -76,14 +78,15 @@
 <body>
     
     <body>
-        <div class="wrapper d-flex">
+        <div class="wrapper d-flex ">
             {{-- Sidebar --}}
-            @include('partials.sidebar')
-    
+            <div >
+                @include('partials.sidebar')
+            </div>
             {{-- Main Section (Navbar + Content) --}}
             <div class="main flex-grow-1">
                 {{-- Navbar --}}
-                <nav class="navbar navbar-dark bg-white  shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211);">
+                <nav class="navbar navbar-dark bg-transparent   shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211);">
                     <div class="container-fluid">
                         <button class="btn btn-light" id="toggleSidebar">
                             <i class="fas fa-bars"></i>
