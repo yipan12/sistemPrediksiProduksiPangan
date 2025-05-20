@@ -5,7 +5,7 @@
 
 
     {{-- Moving arage tabel --}}
-        <div class="container-fluid mb-5">
+    <div class="container-fluid mb-5">
         <div class="row g-3">
             <div class="col-md-4">
                 <div class="card shadow-lg h-100">
@@ -105,6 +105,50 @@
             <div class="d-flex justify-content-end  col-md-6 ">
                 {{ $produksiPangan->links() }}
             </div>
+        </div>
+        {{-- table perbandingan --}}
+    </div>
+    <div class="card card-body mt-3 shadow shadow-lg">
+        <table class=" table table-bordered table-responsive table-hover shadow-sm">
+            <thead class="table-success">
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Produk</th>
+                    <th>Produksi Aktual</th>
+                    <th>Target prediksi</th>
+                    <th>Prediksi Ma</th>
+                    <th>Prediksi Lr</th>
+                    <th>Hasil terbaik</th>
+                    <th>Akurasi persen</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    @foreach ($perbandingan as $key => $data )
+                        <td>{{ $perbandingan->total() - $perbandingan->firstItem() - $key + 1 }}</td>
+                        <td>{{ $data->produk }}</td>
+                        <td>{{ $data->produksi_aktual }}</td>
+                        <td>{{ $data->target_prediksi }}</td>
+                        <td>{{ $data->prediksi_ma === 0 ? '-' : $data->prediksi_ma}}</td>
+                        <td>{{ $data->prediksi_lr === 0 ? '--' : $data->prediksi_lr }}</td>
+                        <td>{{ $data->hasil_terbaik }}</td>
+                        <td class="fw-bold" style="color: {{ $data->akurasi_persen > 80.00 ? 'green' : 'red' }}">{{ $data->akurasi_persen }}%</td>
+                        <td>
+                            <form action="" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    @endforeach
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end  col-md-6 ">
+            {{ $perbandingan->links() }}
         </div>
     </div>
 @endsection

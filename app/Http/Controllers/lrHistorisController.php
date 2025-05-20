@@ -64,7 +64,8 @@ class lrHistorisController extends Controller
 
         // hapus 
         public function destroy(Request $request, $id){
-            Historylr::findOrfail($id)->delete($id);
-            return redirect()->route('LrIndex')->with('status', 'Data berhasil di hapus');
+           $request =  Historylr::findOrfail($id);
+           $request->delete();
+        return redirect()->route('LrIndex')->with('status', 'Data berhasil di hapus');
         }
 }

@@ -47,7 +47,8 @@ class MaHistorisController extends Controller
     }
     // hapus
     public function destroy(Request $request, $id){
-        History::findOrfail($id)->delete($id);
+        $request = History::findOrfail($id);
+        $request->delete();
         return redirect()->route('MovingarageIndex')->with('status', 'hapus data berhasil');
     }
 

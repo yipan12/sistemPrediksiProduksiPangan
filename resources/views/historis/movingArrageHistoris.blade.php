@@ -34,7 +34,7 @@
            <td class="text-center">{{ $data->tanggal_prediksi->format('Y-m-d') }}</td>
            <td>{{ $data->periode_prediksi }}</td>
            <td>
-            <form action="{{ route('hapusMaindex', $data->id) }}" method="post">
+            <form action="{{ route('hapusMaIndex', $data->id) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <button type="submit" onclick="confirm('yakin mau hapus?')" class="btn btn-danger" >

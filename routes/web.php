@@ -13,6 +13,8 @@ use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\MovingArrageController;
 use App\Http\Controllers\ProduksiPanganController;
 use App\Http\Controllers\LinearRegresionController;
+use App\Models\PerbandinganPrediksi;
+use App\Models\ProduksiPangan;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,11 +50,11 @@ route::post('linearRegresion', [LinearRegresionController::class, 'linearRegresi
 // historis ma
 route::post('store', [MaHistorisController::class, 'store'])->middleware('auth')->name('simpanMovingArrage');
 route::get('index', [MaHistorisController::class, 'index'])->middleware('auth')->name('MovingarageIndex');
-route::delete('Hapus/{id}', [MaHistorisController::class, 'destroy'])->middleware('auth')->name('hapusMaindex');
+route::delete('hapus/{id}', [MaHistorisController::class, 'destroy'])->middleware('auth')->name('hapusMaIndex');
 // historis  lr
 route::get('Historis', [lrHistorisController::class, 'index'])->middleware('auth')->name('LrIndex');
 route::post('Simpan', [lrHistorisController::class, 'store'])->middleware('auth')->name('simpanLrIndex');
-route::delete('Hapus/[{id}', [lrHistorisController::class, 'destroy'])->middleware('auth')->name('hapusLrIndex');
+route::delete('Hapus/{id}', [lrHistorisController::class, 'destroy'])->middleware('auth')->name('hapusLrIndex');
 
 
 
