@@ -37,7 +37,7 @@ class LinearRegresionController extends Controller
         $lastDate = Carbon::parse($dataRecords->last()->tanggal);
         $nextDate = $lastDate->copy()->addDays(30)->format('y-m-d');
         // akhir membuat tanggal
-        if ($dataRecords->count() == 0) {
+        if ($dataRecords->count() <= 2) {
             return back()->with('eror', 'Maaf data produksi tidak cukup untuk di prediksi');
         }
         

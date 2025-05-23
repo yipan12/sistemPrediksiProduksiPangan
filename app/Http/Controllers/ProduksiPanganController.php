@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
-use App\Models\Historylr;
-use App\Models\PerbandinganPrediksi;
-use App\Models\ProduksiPangan;
 use Carbon\Carbon;
+use App\Models\History;
+use App\Models\HistoryEs;
+use App\Models\Historylr;
 use Illuminate\Http\Request;
+use App\Models\ProduksiPangan;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\PerbandinganPrediksi;
 
 class ProduksiPanganController extends Controller
 {
@@ -17,6 +20,7 @@ class ProduksiPanganController extends Controller
     {
         $history = \App\Models\History::where('user_id', auth()->id())->count();
         $historylr = \App\Models\Historylr::where('user_id', auth()->id())->count();
+        $historyEs = \App\Models\HistoryEs::where('user_id', auth()->id())->count();
         $produksiPangan = \App\Models\ProduksiPangan::where('user_id', auth()->id())
         ->orderBy('created_at', 'desc')
         ->paginate(10);
@@ -28,7 +32,8 @@ class ProduksiPanganController extends Controller
             'produksiPangan' => $produksiPangan,
             'history' => $history,
             'historylr' => $historylr,
-            'perbandingan' => $perbandinganPrediksi
+            'perbandingan' => $perbandinganPrediksi,
+            'historyEs' => $historyEs
         ]);
     }
 
@@ -85,8 +90,14 @@ class ProduksiPanganController extends Controller
         $produksiPangan->delete();
         return redirect()->route('produksi.index')->with('status', 'data berhasil di hapus');
     }
+
+
 // private method ngecek akurasi prediksi yang di buat ma dan lr
     private function checkAndSaveAkurasi($produksi){
+
+         
+
+
         $tanggalProduksi = Carbon::parse($produksi->tanggal);
         $bulanproduksi = $this->getNamaBulan($tanggalProduksi->month);
         $tahunProduksi = $tanggalProduksi->year;
@@ -104,6 +115,11 @@ class ProduksiPanganController extends Controller
         ->where('periode_prediksi', $periode)
         ->first();
 
+        $prediksiEs = HistoryEs::where('user_id', auth()->id())
+        ->where('produk', $produksi->produk)
+        ->where('periode_prediksi', $periode)
+        ->first();
+
         // mun eweuh hasil dari prediksilr jeung ma maka nggeuskeun nepi ka die
         if(!$prediksiLr && !$prediksiMA){
             return;
@@ -113,15 +129,13 @@ class ProduksiPanganController extends Controller
             'user_id' => auth()->id(),
             'produk' => $produksi->produk,
             'produksi_aktual' => $produksi->jumlah,
-            'tanggal_produksi' => $produksi->tanggal,
-            'target_prediksi' => $periode
-            
+            'prediksi_ma' => 0,
+            'prediksi_lr' => 0,
+            'prediksi_Es' => 0,
+            'target_prediksi' => $periode,
+            'hasil_terbaik' => '',
+            'akurasi_persen' => 0
         ];
-
-        $perbandinganData['prediksi_ma'] = 0;
-        $perbandinganData['akurasi_ma'] = 0;
-        $perbandinganData['prediksi_lr'] = 0;
-        $perbandinganData['akurasi_lr'] = 0;
 
         if($prediksiMA) {
             $perbandinganData['prediksi_ma'] = $prediksiMA->prediksi;
@@ -129,6 +143,18 @@ class ProduksiPanganController extends Controller
             $akurasiMA = $produksi->jumlah > 0 ?
             100 - (($selisihMA/$produksi->jumlah) * 100) : 0;
             $perbandinganData['akurasi_ma'] = round(max(0, $akurasiMA), 2);
+            $prediksiMA->akurasi = $akurasiMA;
+            $prediksiMA->save();
+        }
+
+        if ($prediksiEs) {
+            $perbandinganData['prediksi_Es'] = $prediksiEs->prediksi;
+            $selisihES = abs($produksi->jumlah - $prediksiEs->prediksi);
+            $akurasiES = $produksi->jumlah > 0 ? 
+                100 - (($selisihES / $produksi->jumlah) * 100) : 0;
+            $perbandinganData['akurasi_Es'] = round(max(0, $akurasiES), 2);
+            $prediksiEs->akurasi = $akurasiES;
+            $prediksiEs->save();
         }
 
         if ($prediksiLr) {
@@ -137,22 +163,23 @@ class ProduksiPanganController extends Controller
             $akurasiLR = $produksi->jumlah > 0 ? 
                 100 - (($selisihLR / $produksi->jumlah) * 100) : 0;
             $perbandinganData['akurasi_lr'] = round(max(0, $akurasiLR), 2);
+            $prediksiLr->akurasi = $akurasiLR;
+            $prediksiLr->save();
         }
 
-        if(isset($perbandinganData['akurasi_ma']) && $perbandinganData['akurasi_lr']){
-            if ($perbandinganData['akurasi_ma'] > $perbandinganData['akurasi_lr']) {
-                $perbandinganData['hasil_terbaik'] = 'Moving Average';
-                $perbandinganData['akurasi_persen'] = $perbandinganData['akurasi_ma'];
-            } else {
-                $perbandinganData['hasil_terbaik'] = 'Linear Regression';
-                $perbandinganData['akurasi_persen'] = $perbandinganData['akurasi_lr'];
-            }
-        } elseif (isset($perbandinganData['akurasi_ma'])) {
+        $akurasiMA = $perbandinganData['akurasi_ma'] ?? 0;
+        $akurasiLR = $perbandinganData['akurasi_lr'] ?? 0;
+        $akurasiES = $perbandinganData['akurasi_es'] ?? 0;
+
+         if ($akurasiMA >= $akurasiLR && $akurasiMA >= $akurasiES) {
             $perbandinganData['hasil_terbaik'] = 'Moving Average';
-            $perbandinganData['akurasi_persen'] = $perbandinganData['akurasi_ma'];
-        } elseif (isset($perbandinganData['akurasi_lr'])) {
+            $perbandinganData['akurasi_persen'] = $akurasiMA;
+        } elseif ($akurasiLR >= $akurasiMA && $akurasiLR >= $akurasiES) {
             $perbandinganData['hasil_terbaik'] = 'Linear Regression';
-            $perbandinganData['akurasi_persen'] = $perbandinganData['akurasi_lr'];
+            $perbandinganData['akurasi_persen'] = $akurasiLR;
+        } else {
+            $perbandinganData['hasil_terbaik'] = 'Exponential Smoothing';
+            $perbandinganData['akurasi_persen'] = $akurasiES;
         }
         
         PerbandinganPrediksi::create($perbandinganData);

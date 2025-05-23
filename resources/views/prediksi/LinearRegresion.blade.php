@@ -14,10 +14,10 @@
         </div>
         {{-- tab navigasi prediksi --}}
         <ul class="nav nav-tabs mt-2 ms-2 gap-2" id="chartTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" >
                 <button class="nav-link active" id="line-chart-tab" data-bs-toggle="tab" data-bs-target="#lineChartTab" type="button" role="tab" aria-controls="lineChartTab" aria-selected="true">Line chart</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" >
                 <button class="nav-link" id="bar-chart-tab" data-bs-toggle="tab" data-bs-target="#barChartTab" type="button" role="tab" aria-controls="barChartTab" aria-selected="false">Bar chart</button>
             </li>
         </ul>
@@ -59,8 +59,7 @@
                     @csrf
                     <input type="hidden" name="produk" value="{{ $produk ?? ($komoditas->first() ?? '') }}">
                     <input type="hidden" name="prediksi" value="{{ $prediksi }}">
-                    <label for="button">Simpan Prediksi</label>
-                    <button type="submit" class="btn btn-success form-control">Simpan</button>
+                    <button type="submit" class="btn btn-success form-control">Simpan Prediksi</button>
                 </form>
             </div>
         </div>

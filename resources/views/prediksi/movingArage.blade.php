@@ -71,7 +71,7 @@
                     <input type="hidden" name="jumlah_2" value="{{ $dataTerakhir[1] ?? '' }}">
                     <input type="hidden" name="jumlah_3" value="{{ $dataTerakhir[2] ?? '' }}">
                     <input type="hidden" name="prediksi" value="{{ $prediksi }}">
-                    <button type="submit" class="btn btn-success form-control">Simpan</button>
+                    <button type="submit" class="btn btn-success form-control">Simpan Prediksi</button>
                 </form>
             </div>
         </div>

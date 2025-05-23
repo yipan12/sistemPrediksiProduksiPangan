@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-
     {{-- Moving arage tabel --}}
     <div class="container-fluid mb-5">
         <div class="row g-3">
@@ -37,11 +34,15 @@
             </div>
             
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
-                    <img src="{{ asset("asset/undraw_data-trends_kv5v.svg") }}" class="card-img-top" alt="...">
+                <div class="card shadow-lg h-100">
+                    <img src="{{ asset("/asset/exponential.png") }}" class="card-img-top mx-auto w-75 mt-4" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title fs-6">Moving Average</h5>
-                        <a href="{{ route('MovingarageIndex') }}" class="btn btn-primary">Lihat</a>
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="card-title fs-6 fw-bold">Exponential Smoothing</h5>
+                            <button class="btn skyblue-custoom text-white fw-bold">{{ $historyEs }} Hasil Prediksi</button>
+                        </div>
+                        <p class="mt-3">Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
+                        <a href="{{ route('EsIndex') }}" class="btn btn-success btn-sm">Lihat Lebih</a>
                     </div>
                 </div>
             </div>
@@ -61,7 +62,7 @@
        
         <table class="table  table-bordered table-responsive-sm table-hover shadow-sm ">
             <thead class="table-success">
-                <tr>
+                <tr class="ibm">
                     <th class="text-center">No</th>
                     <th>Produk</th>
                     <th class="text-center text-truncate">Jumlah</th>
@@ -72,7 +73,7 @@
             </thead>
             <tbody>
                 @foreach ($produksiPangan as $key => $data)
-                <tr>
+                <tr class="ibm">
                     <td class="text-center">{{ $produksiPangan->total() - $produksiPangan->firstItem() - $key + 1 }}</td>
                     <td>{{ $data->produk }}</td>
                     <td class="text-center">{{ $data->jumlah }}</td>
@@ -109,33 +110,40 @@
         {{-- table perbandingan --}}
     </div>
     <div class="card card-body mt-3 shadow shadow-lg">
+        @if (session('hapus'))
+            <div class="alert alert-success">
+                {{ session('hapus') }}
+            </div>
+        @endif
         <table class=" table table-bordered table-responsive table-hover shadow-sm">
             <thead class="table-success">
-                <tr class="text-center">
+                <tr class="text-center ibm">
                     <th>No</th>
                     <th>Produk</th>
                     <th>Produksi Aktual</th>
                     <th>Target prediksi</th>
                     <th>Prediksi Ma</th>
                     <th>Prediksi Lr</th>
+                    <th>Prediksi Es</th>
                     <th>Hasil terbaik</th>
                     <th>Akurasi persen</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
-                    @foreach ($perbandingan as $key => $data )
+                @foreach ($perbandingan as $key => $data )
+                <tr class="text-center ibm">
                         <td>{{ $perbandingan->total() - $perbandingan->firstItem() - $key + 1 }}</td>
                         <td>{{ $data->produk }}</td>
                         <td>{{ $data->produksi_aktual }}</td>
                         <td>{{ $data->target_prediksi }}</td>
                         <td>{{ $data->prediksi_ma === 0 ? '-' : $data->prediksi_ma}}</td>
                         <td>{{ $data->prediksi_lr === 0 ? '--' : $data->prediksi_lr }}</td>
+                        <td>{{ $data->prediksi_Es === 0 ? '--' : $data->prediksi_Es }}</td>
                         <td>{{ $data->hasil_terbaik }}</td>
-                        <td class="fw-bold" style="color: {{ $data->akurasi_persen > 80.00 ? 'green' : 'red' }}">{{ $data->akurasi_persen }}%</td>
+                        <td class="fw-semibold" style="color: {{ $data->akurasi_persen > 80.00 ? 'green' : 'red' }}">{{ $data->akurasi_persen }}%</td>
                         <td>
-                            <form action="" method="post">
+                            <form action="{{ route('hapusPerbandingan', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">
@@ -143,8 +151,8 @@
                                 </button>
                             </form>
                         </td>
+                    </tr>
                     @endforeach
-                </tr>
             </tbody>
         </table>
         <div class="d-flex justify-content-end  col-md-6 ">

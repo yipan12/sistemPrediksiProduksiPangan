@@ -7,15 +7,39 @@
     <title>Halaman || {{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    {{-- font --}}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    {{-- akhir font --}}
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    {{-- External css --}}
+    <link rel="stylesheet" href="{{ asset('css/layouts.css') }}">
 
     {{-- style --}}
     <style>
+
+        .sumary-card{
+            cursor: pointer;
+        }
+        .gradient {
+            background: linear-gradient(100deg, #036553, #63e0c1);
+        }
+        .gradient-blue {
+            background: linear-gradient(100deg, #3198d4, #024972);
+        }
+        /* font */
         .poppins{
             font-family: 'Poppins', sans-serif;
         }
+        .roboto{
+            font-family: 'Roboto', sans-serif;
+        }
+        .ibm{
+            ffont-family: 'IBM Plex Sans', sans-serif;
+        }
+        /* akhir font */
         body {
             margin: 0;
         }
@@ -71,13 +95,15 @@
             color: #218838; /* Hijau gelap saat hover */
             background-color: #e9ecef;
         }
+
+        .customBg{
+              background-color: #f2f2f2;
+        }
     </style>
     
     {{-- akhir style --}}
 </head>
-<body>
-    
-    <body>
+<body class="@yield('body-class')">
         <div class="wrapper d-flex ">
             {{-- Sidebar --}}
             <div >
@@ -134,5 +160,4 @@
     
 
   </body>
-</body>
 </html>

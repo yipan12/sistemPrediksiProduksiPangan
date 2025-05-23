@@ -15,7 +15,7 @@ class MovingArrageController extends Controller
         ->distinct()->pluck('produk');
         return view('prediksi.movingArage', 
         [
-            'title' => 'Prediksi',
+            'title' => 'PrediksiMovingArrage',
             'komoditas' => $komoditas,
             'produk' => null,
             'dataTerakhir' => collect(),
@@ -33,7 +33,7 @@ class MovingArrageController extends Controller
 
             $dataTerakhir = ProduksiPangan::where('user_id', auth()->id())
                     ->where('produk', $produk)
-                    ->orderBy('tanggal', 'desc')
+                    ->orderBy('tanggal')
                     ->take(3)
                     ->pluck('jumlah')
                     ->reverse()

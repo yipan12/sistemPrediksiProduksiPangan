@@ -7,12 +7,17 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HistorisController;
 use App\Http\Controllers\PrediksiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EsHistorisController;
+use App\Http\Controllers\exponentialSmoothing;
+use App\Http\Controllers\exponentialSmoothingController;
 use App\Http\Controllers\lrHistorisController;
 use App\Http\Controllers\MaHistorisController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\MovingArrageController;
 use App\Http\Controllers\ProduksiPanganController;
 use App\Http\Controllers\LinearRegresionController;
+use App\Http\Controllers\perbandinganController;
+use App\Models\HistoryEs;
 use App\Models\PerbandinganPrediksi;
 use App\Models\ProduksiPangan;
 
@@ -43,18 +48,27 @@ Route::post('/register', [RegistrasiController::class, 'store']);
 Route::resource('produksi', ProduksiPanganController::class)->middleware('auth');
 // route prediksi
 Route::get('prediksi', [MovingArrageController::class, 'index'])->middleware('auth')->name('prediksi-pangan');
-route::post('prediksi', [MovingArrageController::class, 'prediksi'])->middleware('auth')->name('prediksi-pangan2');
+Route::post('prediksi', [MovingArrageController::class, 'prediksi'])->middleware('auth')->name('prediksi-pangan2');
 // route linear regresion
 Route::get('linearRegresionView', [LinearRegresionController::class, 'linearRegresionView'])->middleware('auth')->name('linearView');
-route::post('linearRegresion', [LinearRegresionController::class, 'linearRegresion'])->middleware('auth')->name('prediksi-linear');
+Route::post('linearRegresion', [LinearRegresionController::class, 'linearRegresion'])->middleware('auth')->name('prediksi-linear');
+// route exponential
+Route::get('expoIndex', [exponentialSmoothingController::class, 'index'])->middleware('auth')->name('expoIndex');
+Route::post('expoPrediksi', [exponentialSmoothingController::class, 'exponentialSmoothing'])->middleware('auth')->name('expoPrediksi');
 // historis ma
-route::post('store', [MaHistorisController::class, 'store'])->middleware('auth')->name('simpanMovingArrage');
-route::get('index', [MaHistorisController::class, 'index'])->middleware('auth')->name('MovingarageIndex');
-route::delete('hapus/{id}', [MaHistorisController::class, 'destroy'])->middleware('auth')->name('hapusMaIndex');
+Route::post('store', [MaHistorisController::class, 'store'])->middleware('auth')->name('simpanMovingArrage');
+Route::get('index', [MaHistorisController::class, 'index'])->middleware('auth')->name('MovingarageIndex');
+Route::delete('hapus/{id}', [MaHistorisController::class, 'destroy'])->middleware('auth')->name('hapusMaIndex');
 // historis  lr
-route::get('Historis', [lrHistorisController::class, 'index'])->middleware('auth')->name('LrIndex');
-route::post('Simpan', [lrHistorisController::class, 'store'])->middleware('auth')->name('simpanLrIndex');
-route::delete('Hapus/{id}', [lrHistorisController::class, 'destroy'])->middleware('auth')->name('hapusLrIndex');
+Route::get('Historis', [lrHistorisController::class, 'index'])->middleware('auth')->name('LrIndex');
+Route::post('Simpan', [lrHistorisController::class, 'store'])->middleware('auth')->name('simpanLrIndex');
+Route::delete('Hapus/{id}', [lrHistorisController::class, 'destroy'])->middleware('auth')->name('hapusLrIndex');
+// historis es
+Route::get('indexEs', [EsHistorisController::class, 'index'])->middleware('auth')->name('EsIndex');
+Route::post('SimpanEs', [EsHistorisController::class, 'simpanEsHistory'])->middleware('auth')->name('simpanEs');
+Route::delete('delete/{id}', [EsHistorisController::class, 'destroy'])->middleware('auth')->name('esHapus');
+// route hapus
+Route::delete('destroy/{id}', [perbandinganController::class, 'destroy'])->middleware('auth')->name('hapusPerbandingan');
 
 
 

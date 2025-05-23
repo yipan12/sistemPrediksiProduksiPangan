@@ -16,6 +16,7 @@ class PerbandinganPrediksi extends Model
         'produksi_aktual',
         'prediksi_ma',
         'prediksi_lr',
+        'prediksi_Es',
         'target_prediksi',
         'hasil_terbaik',
         'akurasi_persen'

@@ -49,6 +49,11 @@
                                 <i class="fas fa-chart-pie me-2"></i> Linear regresion
                             </a>
                         </li>
+                        <li>
+                            <a class="nav-link {{ request()->routeIs('expoIndex') ? 'text-primary fw-bold' : 'text-black' }}" href="{{ route('expoIndex') }}">
+                                <i class="fas fa-chart-area me-2"></i> Exponential
+                            </a> 
+                        </li>
                     </ul>
                 </li>
             </ul>

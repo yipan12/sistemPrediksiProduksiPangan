@@ -37,7 +37,6 @@ class MaHistorisController extends Controller
         $nextMonth = Carbon::now()->addMonth();
         $bulanBerikutnya = $this->getNamaBulan($nextMonth->month);
         $tahunBerikutnya = $nextMonth->year;
-            
         $validatedData['periode_prediksi'] = $bulanBerikutnya . ' ' . $tahunBerikutnya;
         $validatedData['user_id'] = auth()->id();
         

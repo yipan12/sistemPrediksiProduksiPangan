@@ -42,7 +42,7 @@
                     <td>{{ $data->tanggal_prediksi }}</td>
                     <td>{{ $data->periode_prediksi }}</td>
                     <td>
-                        <form action="{{ route('hapusLrIndex', $data->id) }}" method="post">
+                        <form action="{{ route('esHapus', $data->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('yakin hapus data ini?')" class="btn btn-danger">

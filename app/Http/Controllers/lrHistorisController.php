@@ -32,7 +32,7 @@ class lrHistorisController extends Controller
         $nextMonth = Carbon::now()->addMonth();
         $bulanSelanjutnya = $this->getNamaBulan($nextMonth->month);
         $tahunBerikutnya = $nextMonth->year;
-
+        
         $validatedData['tanggal_prediksi'] = $tanggalPrediksi;
         $validatedData['periode_prediksi'] = $bulanSelanjutnya . " " . $tahunBerikutnya;
         $validatedData['user_id'] = auth()->id();

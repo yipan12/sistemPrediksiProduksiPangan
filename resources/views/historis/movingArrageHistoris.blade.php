@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+
+
 @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -16,6 +18,7 @@
                 <th>Produksi 2</th>
                 <th>Produksi 3</th>
                 <th>Hasil Prediksi</th>
+                <th>Akurasi</th>
                 <th class="text-center">Tanggal Prediksi</th>
                 <th>Target Prediksi</th>
                 <th>Aksi</th>
@@ -24,6 +27,17 @@
     <tbody>
         @foreach ($historis as $key => $data )
 
+        @php
+    $warna = '-';
+    if ($data->akurasi > 80) {
+        $warna = 'green';
+    } elseif ($data->akurasi >= 70) {
+        $warna = 'orange';
+    } elseif ($data->akurasi > 0) {
+        $warna = 'red';
+    }
+    @endphp
+
         <tr class="text-center">
            <td class="text-center">{{ $historis->total() - $historis->firstItem() - $key + 1 }}</td>
            <td >{{ $data->produk }}</td>
@@ -31,6 +45,8 @@
            <td>{{ $data->jumlah_2 }}</td>
            <td>{{ $data->jumlah_3 }}</td>
            <td>{{ $data->prediksi }}</td>
+           <td style="color: {{ $data->akurasi > 0 ? $warna : 'black' }}">
+            {{ $data->akurasi > 0 ? $data->akurasi . '%' : '-' }}</td>
            <td class="text-center">{{ $data->tanggal_prediksi->format('Y-m-d') }}</td>
            <td>{{ $data->periode_prediksi }}</td>
            <td>
