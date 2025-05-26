@@ -28,7 +28,8 @@ class DashboardController extends Controller
             'akurasiRendah' => $this->getakurasiTerednah(),
             'metodeTerbaik' => $this->getAkurasiRataRata(),
             'produksiTerbanyak' => $produksiTerbanyak,
-            'hasilAkurasi' => $this->getchartData()
+            'hasilAkurasi' => $this->getchartData(),
+            'terakhirKali' => $this->getTerakkhirKaliProduksi()
         ]);
     }
 
@@ -39,6 +40,13 @@ class DashboardController extends Controller
         return $hasilakurasi = \App\Models\PerbandinganPrediksi::where('user_id', auth()->id())
         ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es')
         ->get();
+    }
+
+    private function getTerakkhirKaliProduksi(){
+        $terakhirKali = \App\Models\ProduksiPangan::where('user_id', auth()->id())
+        ->orderByDesc('created_at')
+        ->first();
+        return $waktuTerakhir = $terakhirKali ? $terakhirKali->created_at->translatedFormat('d F Y') : 'Belum Pernah Input Produksi';
     }
 
 

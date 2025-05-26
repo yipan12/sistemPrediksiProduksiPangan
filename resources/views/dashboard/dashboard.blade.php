@@ -145,7 +145,7 @@
                         <div class="card-body d-flex justify-content-between align-items-center ms-2 gap-2 text-white">
                             <div class="d-flex flex-column justify-content-end">
                                 <h4 class="poppins mb-0 mt-1 fs-4 text-capitalize">{{ $produksiTerbanyak['produk'] }}</h4>
-                                <p class="small poppins">Komoditas yang sering di produksi</p>
+                                <p class="small poppins">Komoditas yang banyak di produksi</p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-trophy fs-1 opacity-50 icon-3d mt-4"></i>
@@ -169,14 +169,36 @@
 
 
     <div class="row py-2 g-0">
-        <div class="col-10">
-            <div class="card" style="height: 450px">
-                <div id="productionChart"></div>
+        <div class="col-10 card">
+        {{-- bar navigasi --}}
+        <ul class="nav nav-tabs mt-2 ms-2 gap-2" id="chartTab" role="tablist">
+            <li class="nav-item" >
+                <button class="nav-link active" id="line-chart-tab" data-bs-toggle="tab" data-bs-target="#lineChartTab" type="button" role="tab" aria-controls="lineChartTab" aria-selected="true">Line chart</button>
+            </li>
+            <li class="nav-item" >
+                <button class="nav-link" id="bar-chart-tab" data-bs-toggle="tab" data-bs-target="#barChartTab" type="button" role="tab" aria-controls="barChartTab" aria-selected="false">Bar chart</button>
+            </li>
+        </ul>
+        {{-- akhir bar --}}
+        {{-- barchart --}}
+            <div class="tab-content" id="chartTabcontent">
+                {{-- line chart --}}
+                <div class="tab-pane fade show active" style="height: 450px" id="lineChartTab" role="tabpanel" aria-labelledby="line-chart-tab">
+                    <div id="productionChart"></div>
+                </div>
+
+                {{-- bar chart --}}
+                <div class="tab-pane fade" style="height: 450px" id="barChartTab" role="tabpanel" aria-labelledby="bar-chart-tabel">
+                    <div id="barChart"></div>
+                </div>
             </div>
-        </div>
+
+            {{-- div penutup col --}}
+        </div> 
         <div class="col-2 d-flex flex-column">
-            <div class="card h-50">
-                <h1>h</h1>
+            <div class="card h-50 d-flex justify-content-center align-items-center">
+                <h6 class="text-muted">Terakhir Input</h6>
+                <h1>{{ $terakhirKali }}</h1>
             </div>
             <div class="card h-50">
                 <h1>h</h1>

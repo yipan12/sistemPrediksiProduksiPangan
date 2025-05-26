@@ -3,12 +3,17 @@ import { Button } from "bootstrap";
 import "./bootstrap";
 import gsap from "gsap";
 import { renderingProductionChart } from "./chart";
+import { renderingBarChart } from "./barchart";
 
 const flipStates = {};
 
 document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector("#productionChart")) {
         renderingProductionChart();
+    }
+
+    if (document.querySelector("#barChart")) {
+        renderingBarChart();
     }
 });
 
