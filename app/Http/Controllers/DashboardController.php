@@ -6,19 +6,39 @@ namespace App\Http\Controllers;
 use App\Models\Dashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+
 class DashboardController extends Controller
 {
     
     public function index()
     {    
+
+    $produksiTerbanyak = $this->getProdukJumlahTerbanyak();
+
+    if ($produksiTerbanyak) {
+        $produksiTerbanyak->total_jumlah_formatted = $this->formatJumlah($produksiTerbanyak->total_jumlah);
+    }
+
         return view('dashboard.dashboard', [
             'title' => 'Dashboard',
             'tanggal' =>  $this->getTanggalSekarang(),
             'total' => $this->getTotalPrediksi(),
             'akurasi' => $this->getakurasiTertinggi(),
             'akurasiRendah' => $this->getakurasiTerednah(),
-            'metodeTerbaik' => $this->getAkurasiRataRata()
+            'metodeTerbaik' => $this->getAkurasiRataRata(),
+            'produksiTerbanyak' => $produksiTerbanyak,
+            'hasilAkurasi' => $this->getchartData()
         ]);
+    }
+
+
+
+
+    private function getchartData() {
+        return $hasilakurasi = \App\Models\PerbandinganPrediksi::where('user_id', auth()->id())
+        ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es')
+        ->get();
     }
 
 
@@ -40,6 +60,25 @@ class DashboardController extends Controller
         $prediksi = $this->akurasiRataRata($userId);
         return $prediksi->sortByDesc('akurasi')->first();
     }
+
+    private function getProdukJumlahTerbanyak() {
+    return \App\Models\ProduksiPangan::select('produk', DB::raw('SUM(jumlah) as total_jumlah'))
+        ->where('user_id', auth()->id())
+        ->groupBy('produk')
+        ->orderByDesc('total_jumlah')
+        ->first();
+    }
+
+    private function formatJumlah($jumlah)
+        {
+            if ($jumlah >= 1000000) {
+                return number_format($jumlah / 1000000, 1) . ' juta';
+            } elseif ($jumlah >= 1000) {
+                return number_format($jumlah / 1000, 1) . ' ribu';
+            }
+
+            return number_format($jumlah);
+        }
 
 
 
@@ -86,7 +125,8 @@ class DashboardController extends Controller
 
         return [
             'metode' => $item['metode'],
-            'akurasi' => round($akurasiRataRata ?? 0, 2),
+            'akurasi' => round($akurasiTertinggi ?? 0, 2)
+            
         ];
     }); 
     }

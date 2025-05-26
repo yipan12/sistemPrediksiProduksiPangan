@@ -1,7 +1,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
     $activeClass = function($page) use ($title) {
-        return $title === $page ? 'text-primary fw-bold' : 'text-black';
+        return $title === $page ? 'text-success fw-bold' : 'text-black';
     };
 @endphp
 

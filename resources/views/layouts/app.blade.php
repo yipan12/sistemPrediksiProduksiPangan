@@ -14,21 +14,44 @@
     {{-- akhir font --}}
     <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    {{-- External css --}}
-    <link rel="stylesheet" href="{{ asset('css/layouts.css') }}">
-
+    {{-- Load CSS & JS dari Vite --}}
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{-- style --}}
     <style>
+
+        /* card */
+        .flip-container{
+            perspective: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+        .flip-inner{
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .flip-front, .flip-back{
+            backface-visibility: hidden;
+            z-index: 2;
+        }
+        .flip-container button {
+        z-index: 10 !important; /* TAMBAHIN INI */
+        }
+
+         .flip-back { 
+            transform: rotateY(180deg); 
+        }
+        /* akhir card */
 
         .sumary-card{
             cursor: pointer;
         }
         .gradient {
-            background: linear-gradient(100deg, #036553, #63e0c1);
+            background: linear-gradient(-100deg, #93ff78, #5cceff) !important;
+            background-size: 100% 100% !important;
+            background-repeat: no-repeat !important
         }
-        .gradient-blue {
-            background: linear-gradient(100deg, #3198d4, #024972);
-        }
+        
         /* font */
         .poppins{
             font-family: 'Poppins', sans-serif;
@@ -40,9 +63,6 @@
             ffont-family: 'IBM Plex Sans', sans-serif;
         }
         /* akhir font */
-        body {
-            margin: 0;
-        }
         .sidebar {
             width: 250px;
             transition: margin-left 0.3s ease;
@@ -96,14 +116,32 @@
             background-color: #e9ecef;
         }
 
+        .card-background{
+            background-color: rgb(224, 255, 224)
+        }
+
         .customBg{
-              background-color: #f2f2f2;
+        background-image: url('/asset/background.png'); =
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        }
+
+        .sidebar{
+        background-image: url('/asset/sidebaredit.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        transform: translateZ(0);
+        will-change: transform;
         }
     </style>
     
     {{-- akhir style --}}
 </head>
-<body class="@yield('body-class')">
+<body class="@yield('body-class')" style="margin: 0">
         <div class="wrapper d-flex ">
             {{-- Sidebar --}}
             <div >
@@ -114,8 +152,8 @@
                 {{-- Navbar --}}
                 <nav class="navbar navbar-dark bg-transparent   shadow-sm" id="topNavbar" style="border-bottom: 1px solid rgb(211, 211, 211);">
                     <div class="container-fluid">
-                        <button class="btn btn-light" id="toggleSidebar">
-                            <i class="fas fa-bars"></i>
+                        <button class="btn btn-succes" id="toggleSidebar">
+                            <i class="fas fa-bars text-success"></i>
                         </button>
                         <span class="navbar-brand ms-3 text-black">Sistem Prediksi Produksi</span>
                     </div>
