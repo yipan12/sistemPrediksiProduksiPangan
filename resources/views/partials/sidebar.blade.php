@@ -28,7 +28,7 @@
                 </li>
                 {{-- dropdown menu prediksi --}}
                 <li class="nav-item mb-2">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('prediksi-pangan*') ? 'text-primary fw-bold' : 'text-black' }}" 
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('prediksi-pangan*') ? 'text-success fw-bold' : 'text-black' }}" 
                     href="#" 
                     id="dropdownPrediksi" 
                     role="button" 
@@ -40,17 +40,17 @@
                     </a>
                     <ul class="collapse list-unstyled ps-4" id="submenuPrediksi">
                         <li>
-                            <a class="nav-link {{ request()->routeIs('prediksi-pangan') ? 'text-primary fw-bold' : 'text-black' }}" href="{{ route('prediksi-pangan') }}">
+                            <a class="nav-link {{ request()->routeIs('prediksi-pangan') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('prediksi-pangan') }}">
                                 <i class="fas fa-chart-line me-2"></i> Moving averrage
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link {{ request()->routeIs('linearView') ? 'text-primary fw-bold' : 'text-black' }}" href="{{ route('linearView') }}">
+                            <a class="nav-link {{ request()->routeIs('linearView') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('linearView') }}">
                                 <i class="fas fa-chart-pie me-2"></i> Linear regresion
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link {{ request()->routeIs('expoIndex') ? 'text-primary fw-bold' : 'text-black' }}" href="{{ route('expoIndex') }}">
+                            <a class="nav-link {{ request()->routeIs('expoIndex') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('expoIndex') }}">
                                 <i class="fas fa-chart-area me-2"></i> Exponential
                             </a> 
                         </li>

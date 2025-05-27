@@ -171,13 +171,26 @@
     <div class="row py-2 g-0">
         <div class="col-10 card">
         {{-- bar navigasi --}}
-        <ul class="nav nav-tabs mt-2 ms-2 gap-2" id="chartTab" role="tablist">
-            <li class="nav-item" >
+        <ul class="nav nav-tabs mt-2 d-flex justify-content-between py-4" id="chartTab" role="tablist">
+            <div class="d-flex ms-2 gap-2 ">
+                <li class="nav-item" >
                 <button class="nav-link active" id="line-chart-tab" data-bs-toggle="tab" data-bs-target="#lineChartTab" type="button" role="tab" aria-controls="lineChartTab" aria-selected="true">Line chart</button>
             </li>
             <li class="nav-item" >
                 <button class="nav-link" id="bar-chart-tab" data-bs-toggle="tab" data-bs-target="#barChartTab" type="button" role="tab" aria-controls="barChartTab" aria-selected="false">Bar chart</button>
             </li>
+            </div>
+            {{-- filter chart --}}
+            <div class="col-md-4">
+                <label for="filterProduk">Filter Produk:</label>
+                <select class="form-select" name="filterProduk" id="filterProduk" onchange="filterByProduct(this.value)">
+                <option value="">Semua produk</option>
+                @foreach ($produk as $produk )
+                    <option value="{{ $produk }}"> {{ $produk }} </option>
+                @endforeach
+                </select>
+            </div>
+            {{-- akhir filter chart --}}
         </ul>
         {{-- akhir bar --}}
         {{-- barchart --}}
