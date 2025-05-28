@@ -3,7 +3,13 @@ import { Button } from "bootstrap";
 import "./bootstrap";
 import gsap from "gsap";
 import { initCharts } from "./charts";
+import Alpine from "alpinejs";
+import { timeAgo } from "./timeAgo";
+import "./perbandinganChartAkurasiPrediksi";
 
+Alpine.data("timeAgo", timeAgo);
+window.Alpine = Alpine;
+Alpine.start();
 const flipStates = {};
 
 document.addEventListener("DOMContentLoaded", function () {

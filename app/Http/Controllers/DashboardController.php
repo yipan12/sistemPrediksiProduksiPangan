@@ -30,7 +30,8 @@ class DashboardController extends Controller
             'produksiTerbanyak' => $produksiTerbanyak,
             'hasilAkurasi' => $this->getchartData(),
             'terakhirKali' => $this->getTerakkhirKaliProduksi(),
-            'produk' => $this->getProduct()
+            'produk' => $this->getProduct(),
+            'akurasiRataRata' => $this->getAkurasiChart()
         ]);
     }
 
@@ -75,6 +76,11 @@ class DashboardController extends Controller
         $userId = auth()->id();
         $prediksi = $this->akurasiRataRata($userId);
         return $prediksi->sortByDesc('akurasi')->first();
+    }
+
+    private function getAkurasiChart() {
+        $userId = auth()->id();
+        return $this->akurasiRataRata($userId);
     }
 
     private function getProdukJumlahTerbanyak() {
@@ -142,7 +148,6 @@ class DashboardController extends Controller
         return [
             'metode' => $item['metode'],
             'akurasi' => round($akurasiTertinggi ?? 0, 2)
-            
         ];
     }); 
     }

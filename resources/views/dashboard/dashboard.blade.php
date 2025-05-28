@@ -5,6 +5,7 @@
 {{-- data untuk chart --}}
     <script>
         window.hasilAkurasi = @json($hasilAkurasi);
+        window.akurasiRataRata = @json($akurasiRataRata);
     </script>
 {{-- data untuk chart --}}
  
@@ -181,7 +182,7 @@
             </li>
             </div>
             {{-- filter chart --}}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="filterProduk">Filter Produk:</label>
                 <select class="form-select" name="filterProduk" id="filterProduk" onchange="filterByProduct(this.value)">
                 <option value="">Semua produk</option>
@@ -209,12 +210,15 @@
             {{-- div penutup col --}}
         </div> 
         <div class="col-2 d-flex flex-column">
-            <div class="card h-50 d-flex justify-content-center align-items-center">
+            <div class="card h-50 d-flex justify-content-center align-items-center"
+            x-data="timeAgo('{{ $terakhirKali }}')" 
+            x-init="startTimer()">
                 <h6 class="text-muted">Terakhir Input</h6>
-                <h1>{{ $terakhirKali }}</h1>
+                <h1 x-text="timeAgoText" class="text-primary mb-0"></h1>
+                <div x-show="exacTime" class="text-muted"></div>
             </div>
             <div class="card h-50">
-                <h1>h</h1>
+                <div id="perbandinganAkurasiChart"></div>
             </div>
         </div>
     </div>
