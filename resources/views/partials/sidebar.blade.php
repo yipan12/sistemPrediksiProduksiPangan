@@ -10,7 +10,7 @@
     {{-- acount --}}
     <div class="w-full mt-2 poppins">
          <i class="fas fa-user text-center d-block mb-2 fs-2 text-gradient"></i>
-         <h4 class="text-black mb-4 text-center text-bold text-gradient">{{ Auth::user()->name }}</h4>
+         <h4 class="text-black mb-4 text-center text-bold text-gradient">{{ Auth::user()->name ?? 'Guest' }}</h4>
     </div>
     {{-- akhir acount --}}
     <div class="flex-grow-1">

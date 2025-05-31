@@ -6,6 +6,7 @@ import { initCharts } from "./charts";
 import Alpine from "alpinejs";
 import { timeAgo } from "./timeAgo";
 import "./perbandinganChartAkurasiPrediksi";
+import "./input";
 
 Alpine.data("timeAgo", timeAgo);
 window.Alpine = Alpine;

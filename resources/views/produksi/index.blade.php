@@ -1,6 +1,35 @@
 @extends('layouts.app')
 @section('body-class', 'customBg')
 @section('content')
+
+    {{-- header --}}
+    <div class="row mb-3">
+        <div class="col-12 ">
+            <div class="card border-0 bg-gradient-success text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h1 class="poppins fs-4 ">History & perbandingan prediksi</h1>
+                            <p>Kelola data produksi dan bandingakan hasil akurasi</p>
+                        </div>
+                        <div class="col-md-6  ">
+                            <div class="d-flex justify-content-end gap-5 poppins">
+                                <div class="">
+                                    <h1 class="fs-5">Total Produksi</h1>
+                                    <h1 class="fs-5">{{ $produksiPangan->total() }}</h1>
+                                </div>
+                                <div>
+                                    <h1 class="fs-5">Akurasi tertinggi</h1>
+                                    <h1 class="fs-5">{{ $perbandingan->max('akurasi_persen') }}%</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- akhir header --}}
     {{-- Moving arage tabel --}}
     <div class="container-fluid mb-5">
         <div class="row g-3">
@@ -50,65 +79,9 @@
     </div>
     {{-- tabel --}}
     <div class="card card-body shadow mt-4 card-background ">
-        <div class="text-center mb-2 ">
-            <h1 class="fs-2 poppins mt-1 lh-sm mb-0">Rekapitulasi Data Produksi</h1>
-            <p class="text-muted mt-0">Tabel ini menampilkan data produksi yang telah dicatat dalam sistem. Gunakan tombol aksi untuk mengedit atau menghapus data.</p>
-        </div>
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-       
-        <table class="table  table-bordered table-responsive-sm table-hover shadow-sm  table-striped">
-            <thead class="table-success">
-                <tr class="ibm">
-                    <th class="text-center">No</th>
-                    <th>Produk</th>
-                    <th class="text-center text-truncate">Jumlah</th>
-                    <th>Harga</th>
-                    <th>Tanggal</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($produksiPangan as $key => $data)
-                <tr class="ibm">
-                    <td class="text-center">{{ $produksiPangan->total() - $produksiPangan->firstItem() - $key + 1 }}</td>
-                    <td>{{ $data->produk }}</td>
-                    <td class="text-center">{{ $data->jumlah }}</td>
-                    <td>Rp {{ number_format($data->harga, 0, ',', '.') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d M Y') }}</td>
-                    <td class="text-center">
-                        <div class="btn-group " role="group">
-                            <a href="{{ route('produksi.edit', $data->id) }}" class="btn btn-warning rounded-1 btn-sm me-1">
-                                <i class="bi bi-pencil"></i> Edit
-                            </a>
-                            <form action="{{ route('produksi.destroy', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Yakin hapus?')" class="btn btn-danger btn-sm">
-                                    <i class="bi bi-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="row mt-2">
-            <div class=" col-md-6 ">
-                <a href="{{ route('produksi.create') }}" class="btn btn-success">Tambah Hasil Produksi</a>
-            </div>
-
-              {{-- Navigasi pagination --}}
-            <div class="d-flex justify-content-end  col-md-6 ">
-                {{ $produksiPangan->links() }}
-            </div>
-        </div>
-        {{-- table perbandingan --}}
+        <livewire:produksi-pangan-table />
     </div>
+    {{-- akhir tabel produksi --}}
     <div class="card card-body mt-3 shadow shadow-lg card-background">
         @if (session('hapus'))
             <div class="alert alert-success">

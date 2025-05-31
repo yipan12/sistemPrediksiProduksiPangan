@@ -59,7 +59,10 @@ class ProduksiPanganController extends Controller
        $validatedData['user_id'] = auth()->id(); 
        $produksi = ProduksiPangan::create($validatedData);
        $this->checkAndSaveAkurasi($produksi);
-       return redirect()->route('produksi.index')->with('status', 'Data berhasil ditambah!');
+       return response()->json([
+       'message' => 'Data berhasil ditambah!',
+       'data' => $produksi
+   ], 201);
     }
 // edit
     public function edit($id)
@@ -208,4 +211,7 @@ class ProduksiPanganController extends Controller
         
         return $namaBulan[$bulan];
     }
+
+
+
 }

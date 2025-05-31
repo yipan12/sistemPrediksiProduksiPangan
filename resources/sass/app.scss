@@ -6,3 +6,7 @@
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #296a42 0%, #80ff8f 100%);
+}
