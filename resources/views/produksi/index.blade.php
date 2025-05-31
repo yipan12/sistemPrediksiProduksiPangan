@@ -89,18 +89,21 @@
             </div>
         @endif
         <table class=" table table-bordered table-responsive table-hover shadow-sm">
-            <thead class="table-success">
-                <tr class="text-center ibm">
-                    <th>No</th>
-                    <th>Produk</th>
-                    <th>Produksi Aktual</th>
-                    <th>Target prediksi</th>
-                    <th>Prediksi Ma</th>
-                    <th>Prediksi Lr</th>
-                    <th>Prediksi Es</th>
-                    <th>Hasil terbaik</th>
-                    <th>Akurasi persen</th>
-                    <th>Aksi</th>
+            <thead class="table-success ">
+                <tr class="text-center ibm align-middle small">
+                    <th rowspan="2">No</th>
+                    <th rowspan="2">Produk</th>
+                    <th rowspan="2">Produksi Aktual</th>
+                    <th rowspan="2">Target prediksi</th>
+                    <th colspan="3">Hasil Prediksi</th>
+                    <th rowspan="2">Hasil terbaik</th>
+                    <th rowspan="2">Akurasi persen</th>
+                    <th rowspan="2">Aksi</th>
+                </tr>
+                <tr class="text-center">
+                    <th>Ma</th>
+                    <th>Lr</th>
+                    <th>Es</th>
                 </tr>
             </thead>
             <tbody>

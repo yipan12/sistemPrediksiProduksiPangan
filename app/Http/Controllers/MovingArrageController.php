@@ -33,7 +33,7 @@ class MovingArrageController extends Controller
 
             $dataTerakhir = ProduksiPangan::where('user_id', auth()->id())
                     ->where('produk', $produk)
-                    ->orderBy('tanggal')
+                    ->orderBy('tanggal', 'desc')
                     ->take(3)
                     ->pluck('jumlah')
                     ->reverse()

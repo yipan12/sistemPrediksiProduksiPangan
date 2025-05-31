@@ -28,26 +28,33 @@
             </div>
         </div>
 
-        <div class="d-flex gap-3 mb-1">
+        <div class="row  mb-1">
             {{-- card untuk total produksi --}}
-            <div class="card col-md-3 bg-transparent">
-                <div class="d-flex flex-column justify-content-center align-items-center my-2">
-                    <h1 class="text-muted small">Total Produksi</h1>
-                    <h1 class="fs-5 fw-bold small">{{  number_format($totalProduksi, 0, ',', '.') }}</h1>
+            <div class=" col-md-3">
+                <div class="border rounded p-2 text-center py-3">
+                    <small class="text-muted d-block">Total Produksi</small>
+                    <strong >{{  number_format($totalProduksi, 0, ',', '.') }} Kg</strong>
                 </div>
             </div>
             {{-- card rata rata --}}
-            <div class="card col-md-3 bg-transparent">
-                <div class="d-flex flex-column justify-content-center align-items-center my-2">
-                    <h1 class="text-muted small">Rata-rata Harga</h1>
-                    <h1 class="fs-5 fw-bold small">{{ 'Rp ' . number_format($rataRata, 0, ',', '.') }}</h1>
+            <div class="col-md-3">
+                <div class="border rounded p-2 text-center py-3">
+                    <small class="text-muted d-block">Rata-rata Harga</small>
+                    <strong >{{ 'Rp ' . number_format($rataRata, 0, ',', '.') }}</strong>
                 </div>
             </div>
             {{-- produksi terbanyak --}}
-            <div class="card col-md-3 bg-transparent">
-                <div class="d-flex flex-column justify-content-center align-items-center my-2">
-                    <h1 class="text-muted small">Produksi Terbanyak</h1>
-                    <h1 class="fs-5 fw-bold small text-capitalize">{{ $produksiTerbanyak['produk'] }}</h1>
+            <div class="col-md-3">
+                <div class="border rounded p-2 text-center py-3">
+                    <small class="text-muted d-block">Produksi Terbanyak</small>
+                    <strong class="text-capitalize">{{ $produksiTerbanyak['produk'] }}</strong>
+                </div>
+            </div>
+            {{-- update terakhir --}}
+            <div class="col-md-3">
+                <div class="border rounded p-2 text-center py-3">
+                    <small class="text-muted d-block">Update Terakhir</small>
+                    <strong>{{ \Carbon\Carbon::parse($updateTerakhir)->diffForHumans() }}</strong>
                 </div>
             </div>
         </div>
@@ -86,10 +93,10 @@
     <div class="table-responsive">
         <table class="table  table-bordered table-hover table-striped">
             <thead class="table-success">
-                <tr class="">
+                <tr class="ibm">
                     <th class="text-center" style="width: 50px;">NO</th>
                     <th>Produk</th>
-                    <th class="text-center">Jumlah</th>
+                    <th class="text-center">Jumlah (Kg)</th>
                     <th>Harga Satuan</th>
                     <th>Tanggal</th>
                     <th class="text-center" style="width: 120px;">Aksi</th>
@@ -102,16 +109,28 @@
                             {{ $products->total() - $products->firstItem() - $index + 1 }}
                         </td>
                         <td>
-                            <div class="d-flex gap-2">
+                            <div class="d-flex gap-2 align-items-center">
                                 <div class="avatar-sm bg-light rounded-circle d-flex justify-content-center align-items-center">
                                     <i class="bi bi-box text-muted"></i>
                                 </div>
                                 <strong class="text-capitalize small">{{ $product->produk }}</strong>
                             </div>
                         </td>
-                        <td class="text-center">{{ number_format($product->jumlah) }}</td>
-                        <td>Rp {{ number_format($product->harga, 0, ',', '.') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($product->tanggal)->format('d M Y') }}</td>
+                        <td class="text-center">
+                            <span class="badge bg-light text-dark">{{ number_format($product->jumlah) }} Kg</span>
+                        </td>
+                        <td>
+                            <div>
+                                Rp {{ number_format($product->harga, 0, ',', '.') }}
+                                <small class="d-block text-muted">Per Kg</small>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                {{ \Carbon\Carbon::parse($product->tanggal)->format('d M Y') }}
+                                <br> <small class="text-muted small">{{ \Carbon\Carbon::parse($product->created_at)->diffForHumans() }}</small>
+                            </div>
+                        </td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group">
                                 <a href="{{ route('produksi.edit', $product->id) }}" 

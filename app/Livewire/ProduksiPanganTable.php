@@ -31,8 +31,16 @@ class ProduksiPanganTable extends Component
             'products' => $products,
             'rataRata' => $rataRata,
             'totalProduksi' => $this->totalProduksi(),
-            'produksiTerbanyak' => $this->produksiTerbanyak()
+            'produksiTerbanyak' => $this->produksiTerbanyak(),
+            'updateTerakhir' => $this->TerakhirUpdate()
         ]);
+    }
+
+    public function TerakhirUpdate() {
+        return \App\Models\ProduksiPangan::where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->pluck('created_at')
+        ->first();
     }
 
     public function totalProduksi(){

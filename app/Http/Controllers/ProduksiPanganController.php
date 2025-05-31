@@ -59,10 +59,7 @@ class ProduksiPanganController extends Controller
        $validatedData['user_id'] = auth()->id(); 
        $produksi = ProduksiPangan::create($validatedData);
        $this->checkAndSaveAkurasi($produksi);
-       return response()->json([
-       'message' => 'Data berhasil ditambah!',
-       'data' => $produksi
-   ], 201);
+       return redirect()->route('produksi.index')->with('status', 'Data berhasil di tambah');
     }
 // edit
     public function edit($id)
