@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ProduksiPangan;
+use Illuminate\Support\Facades\DB;
 
 class ProduksiPanganTable extends Component
 {
@@ -28,8 +29,22 @@ class ProduksiPanganTable extends Component
         
         return view('livewire.produksi-pangan-table', [
             'products' => $products,
-            'rataRata' => $rataRata
+            'rataRata' => $rataRata,
+            'totalProduksi' => $this->totalProduksi(),
+            'produksiTerbanyak' => $this->produksiTerbanyak()
         ]);
+    }
+
+    public function totalProduksi(){
+        return \App\Models\ProduksiPangan::where('user_id', auth()->id())->sum('jumlah');
+    }
+
+    public function produksiTerbanyak(){
+        return \App\Models\ProduksiPangan::where('user_id', auth()->id())
+        ->select('produk', DB::raw('SUM(jumlah) as total_jumlah'))
+        ->groupBy('produk')
+        ->orderByDesc('total_jumlah')
+        ->first();
     }
     
     public function updatingSearch()

@@ -1,6 +1,6 @@
 <div>
 
-      <div class="row mb-3">
+      <div class="row ">
             <div class="col-md-6">
                 <h1 class="fs-3 poppins mt-1 lh-sm mb-0">Rekapitulasi Data Produksi</h1>
                 <p class="text-muted mt-0">Kelola data produksi yang akan digunakan untuk prediksi</p>
@@ -28,9 +28,27 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="card col-md-4">
-                <h1>{{ 'Rp ' . number_format($rataRata, 0, ',', '.') }}</h1>
+        <div class="d-flex gap-3 mb-1">
+            {{-- card untuk total produksi --}}
+            <div class="card col-md-3 bg-transparent">
+                <div class="d-flex flex-column justify-content-center align-items-center my-2">
+                    <h1 class="text-muted small">Total Produksi</h1>
+                    <h1 class="fs-5 fw-bold small">{{  number_format($totalProduksi, 0, ',', '.') }}</h1>
+                </div>
+            </div>
+            {{-- card rata rata --}}
+            <div class="card col-md-3 bg-transparent">
+                <div class="d-flex flex-column justify-content-center align-items-center my-2">
+                    <h1 class="text-muted small">Rata-rata Harga</h1>
+                    <h1 class="fs-5 fw-bold small">{{ 'Rp ' . number_format($rataRata, 0, ',', '.') }}</h1>
+                </div>
+            </div>
+            {{-- produksi terbanyak --}}
+            <div class="card col-md-3 bg-transparent">
+                <div class="d-flex flex-column justify-content-center align-items-center my-2">
+                    <h1 class="text-muted small">Produksi Terbanyak</h1>
+                    <h1 class="fs-5 fw-bold small text-capitalize">{{ $produksiTerbanyak['produk'] }}</h1>
+                </div>
             </div>
         </div>
         
@@ -79,11 +97,18 @@
             </thead>
             <tbody>
                 @forelse($products as $index => $product)
-                    <tr class="">
+                    <tr class="ibm">
                         <td class="text-center">
                             {{ $products->total() - $products->firstItem() - $index + 1 }}
                         </td>
-                        <td>{{ $product->produk }}</td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <div class="avatar-sm bg-light rounded-circle d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-box text-muted"></i>
+                                </div>
+                                <strong class="text-capitalize small">{{ $product->produk }}</strong>
+                            </div>
+                        </td>
                         <td class="text-center">{{ number_format($product->jumlah) }}</td>
                         <td>Rp {{ number_format($product->harga, 0, ',', '.') }}</td>
                         <td>{{ \Carbon\Carbon::parse($product->tanggal)->format('d M Y') }}</td>
