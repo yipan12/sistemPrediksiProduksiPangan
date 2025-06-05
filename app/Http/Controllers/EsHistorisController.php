@@ -38,7 +38,7 @@ class EsHistorisController extends Controller
         $validatedData['tanggal_prediksi'] = $tanggalPrediksi;
         $validatedData['periode_prediksi'] = $bulanSelanjutnya . ' ' . $tahunselanjutnya;
         HistoryEs::create($validatedData);
-        return redirect()->route('EsIndex')->with('status', 'prediksi berhasil di simpan');
+        return redirect()->route('expoIndex')->with('status', 'prediksi berhasil di simpan');
     }
     // 
     public function destroy(Request $request, $id){

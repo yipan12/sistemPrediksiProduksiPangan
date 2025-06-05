@@ -6,6 +6,11 @@
         {{ session('eror') }}
     </div>
     @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     {{-- akhir eror --}}
     <div class="container">
         <div class="card">
@@ -52,7 +57,8 @@
                     </form>
                 </div>
                 {{-- form simpan --}}
-                <div class="col-md-6 justify-content-end d-flex align-items-end">
+                <div class="col-md-6 justify-content-end d-flex align-items-end gap-3">
+                    <a href="{{ route('EsIndex') }}" class="btn btn-success">Lihat Prediksi</a>
                     <form action="{{ route('simpanEs') }}" method="POST" class="w-25">
                         @csrf
                         <input type="hidden" name="produk" value="{{ $produk ?? ($komoditas->first() ?? '') }}" >

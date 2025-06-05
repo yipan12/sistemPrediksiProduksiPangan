@@ -7,6 +7,11 @@
         </div>
     @endif
     {{-- akhir eror --}}
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 <div class="container">
     <div class="card ">
         <div class="card-header bg-dark text-white">
@@ -54,7 +59,8 @@
                 </form>
             </div>
             {{-- simpan prediksi --}}
-            <div class="col-md-6 d-flex justify-content-end align-items-end">
+            <div class="col-md-6 d-flex justify-content-end align-items-end gap-3">
+                <a href="{{ route('LrIndex') }}" class="btn btn-success">Lihat Prediksi</a>
                 <form action="{{ route('simpanLrIndex') }}" method="post" class="w-25">
                     @csrf
                     <input type="hidden" name="produk" value="{{ $produk ?? ($komoditas->first() ?? '') }}">

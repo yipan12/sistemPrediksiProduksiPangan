@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container mt-4">
+<div class="container">
     {{-- eror kurang dari 3 --}}
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow-sm" style="z-index: 1050; max-width: 500px;" role="alert">
@@ -13,6 +13,11 @@
                 </ul>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        </div>
+    @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
         </div>
     @endif
     {{-- akhir eror kurang dri 3 --}}
@@ -63,7 +68,8 @@
                 </form>
             </div>
             {{-- simpan prediksi --}}
-            <div class="col-md-6 d-flex justify-content-end align-items-end">
+            <div class="col-md-6 d-flex justify-content-end align-items-end gap-3">
+                <a href="{{ route('MovingarageIndex') }}" class="btn btn-success">Lihat Prediksi</a>
                 <form action="{{ route('simpanMovingArrage') }}" method="post" class="w-25">
                     @csrf
                     <input type="hidden" name="produk" value="{{ $produk }}">

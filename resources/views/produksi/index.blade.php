@@ -2,6 +2,14 @@
 @section('body-class', 'customBg')
 @section('content')
 
+    @php
+        function getColor($value) {
+            if ($value >= 80) return 'bg-success';
+            elseif ($value >= 50) return 'bg-warning';
+            else return 'bg-danger';
+        }
+    @endphp
+
     {{-- header --}}
     <div class="row mb-3">
         <div class="col-12 ">
@@ -42,8 +50,11 @@
                             <p class="btn skyblue-custoom text-white fw-bold">{{ $history }} Hasil Prediksi</p>
                         </div>
                         {{-- progres bar --}}
-                        <div class="progress" style="height: 5px">
-                            <div class="progress-bar"></div>
+                         <small class="d-block mb-2 text-center mt-0">Akurasi : {{ number_format($rataRataPrediksi['moving_average'],2) }}% </small>
+                        <div class="progress mb-2" style="height: 5px">
+                            <div class="progress-bar {{ getColor($rataRataPrediksi['moving_average']) }}"
+                                style="width: {{ $rataRataPrediksi['moving_average'] }}%">
+                            </div>
                         </div>
                         {{-- akhir progres bar --}}
                         <p>Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
@@ -60,6 +71,13 @@
                                 <h5 class="card-title fs-5 fw-bold">Linear Regresion</h5>
                                 <p class="btn skyblue-custoom text-white fw-bold">{{ $historylr }}  Hasil Prediksi<p>
                             </div>
+                            {{-- progres bar --}}
+                            <small class="d-block mb-2 text-center mt-0">Akurasi : {{ number_format($rataRataPrediksi['linear_regression'],2) }}% </small>
+                            <div class="progress mb-2" style="height: 5px">
+                                <div class="progress-bar {{ getColor($rataRataPrediksi['linear_regression']) }}" style="width: {{ $rataRataPrediksi['linear_regression'] }}%">
+                                </div>
+                            </div>
+                            {{-- akhir progres bar --}}
                             <p class="mt-1">Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
                             <a href="{{ route('LrIndex') }}" class="btn btn-success btn-sm">Lihat Lebih</a>
                         </div>
@@ -75,6 +93,13 @@
                             <h5 class="card-title fs-5 fw-bold">Exponential Smoothing</h5>
                             <button class="btn skyblue-custoom text-white fw-bold">{{ $historyEs }} Hasil Prediksi</button>
                         </div>
+                        {{-- progres bar --}}
+                        <small class="d-block mb-2 mt-3 text-center mt-0">Akurasi : {{ number_format($rataRataPrediksi['exponential_smoothing'],2) }}% </small>
+                        <div class="progress " style="height: 5px">
+                            <div class="progress-bar {{ getColor($rataRataPrediksi['exponential_smoothing']) }}" style="width: {{ $rataRataPrediksi['exponential_smoothing'] }}%">
+                            </div>
+                        </div>
+                        {{-- akhir progres bar --}}
                         <p class="mt-3">Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
                         <a href="{{ route('EsIndex') }}" class="btn btn-success btn-sm">Lihat Lebih</a>
                     </div>

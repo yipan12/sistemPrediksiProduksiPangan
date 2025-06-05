@@ -37,7 +37,7 @@ class lrHistorisController extends Controller
         $validatedData['periode_prediksi'] = $bulanSelanjutnya . " " . $tahunBerikutnya;
         $validatedData['user_id'] = auth()->id();
         Historylr::create($validatedData);
-        return redirect()->route('LrIndex')->with('status', 'prediksi berhasil di simpan');
+        return redirect()->route('linearView')->with('status', 'prediksi berhasil di simpan');
 
 
     }

@@ -42,7 +42,7 @@ class MaHistorisController extends Controller
         
         History::create($validatedData);
         
-        return redirect()->route('MovingarageIndex')->with('status', 'prediksi berhasil di simpan');
+        return redirect()->route('prediksi-pangan')->with('status', 'prediksi berhasil di simpan');
     }
     // hapus
     public function destroy(Request $request, $id){
