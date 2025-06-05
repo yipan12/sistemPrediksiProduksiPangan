@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('body-class', 'customBg')
+
 @section('content')
 @vite('resources/js/app.js')
 {{-- data untuk chart --}}
     <script>
+        // ini untuk chart
         window.hasilAkurasi = @json($hasilAkurasi);
+        // ini nyari rata rata
         window.akurasiRataRata = @json($akurasiRataRata);
     </script>
 {{-- data untuk chart --}}
- 
-
     <div class="row" style="margin-left: -0.7rem; margin-right: -0.7rem; margin-top: -0.5rem;">
         <div class="p-0 container col-md-6" style="color: #52075E">
             <h1 class="fs-5 fw-bold poppins mb-0 d-none d-md-block">Hello, {{ explode(' ', Auth::user()->name)[0] }}!</h1>
@@ -24,6 +24,8 @@
     </div>
     <hr class="mt-0 mb-0">
     
+   
+
     {{-- summary card statistic prediksi --}}
     <div class="row py-3 gap-0">
         {{-- card yang pertama --}}
@@ -52,7 +54,7 @@
                         <div class="card-body pt-4">
                             <div class="d-flex justify-content-center align-items-center text-white mt-2">
                                <p>
-                                Jumlah total produksi yang telah diprediksi hingga saat ini mencapai <strong>{{ $total }}</strong>
+                                Jumlah total produksi yang telah diprediksi hingga saat ini mencapai <strong class="text-dark">{{ $total }}</strong>
                                </p>
                             </div>
                         </div>
@@ -88,7 +90,7 @@
                             <div class="d-flex justify-content-center align-items-center text-white">
                                 <p>Tercatat sejauh ini, akurasi prediksi
                                     <br> 
-                                    yang paling tinggi di peroleh <strong class="text-capitalize">{{ $akurasi['metode'] }} </strong> dengan akurasi mencapai <strong style="color: lightgreen"> {{ $akurasi['akurasi'] }}% </strong></p>
+                                    yang paling tinggi di peroleh <strong class="text-capitalize">{{ $akurasi['metode'] }} </strong> dengan akurasi mencapai <strong class="text-dark"> {{ $akurasi['akurasi'] }}% </strong></p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +124,7 @@
                     <div class="flip-back card mb-3 rounded-3 shadow-sm border-0 gradient sumary-card h-100 position-absolute top-0 start-0 w-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-center align-items-center text-white">
-                               <p >Metode prediksi <strong class="text-capitalize">{{ $metodeTerbaik['metode'] }}</strong> dipilih sebagai metode terbaik karena memiliki rata-rata akurasi tertinggi sebesar <strong style="color: lightgreen">{{ $metodeTerbaik['akurasi'] }}%</strong> dibanding metode lainnya.</p>
+                               <p >Metode prediksi <strong class="text-capitalize">{{ $metodeTerbaik['metode'] }}</strong> dipilih sebagai metode terbaik karena memiliki rata-rata akurasi tertinggi sebesar <strong class="text-dark">{{ $metodeTerbaik['akurasi'] }}%</strong> dibanding metode lainnya.</p>
 
                             </div>
                         </div>
@@ -157,7 +159,7 @@
                     {{-- belakang --}}
                     <div class="flip-back card mb-3 rounded-3 shadow-sm border-0 gradient sumary-card h-100 position-absolute top-0 start-0 w-100">
                         <div class="card-body d-flex align-items-center justify-content-center text-white">
-                            <p class="mb-0"> Komoditas <strong class="text-capitalize ">{{ $produksiTerbanyak->produk }}</strong>  merupakan komoditas terbanyak di produksi sejauh ini hingga mencapai <strong style="color: lightgreen">{{ $produksiTerbanyak->total_jumlah_formatted }}</strong> produksi</p>
+                            <p class="mb-0"> Komoditas <strong class="text-capitalize ">{{ $produksiTerbanyak->produk }}</strong>  merupakan komoditas terbanyak di produksi sejauh ini hingga mencapai <strong class="text-dark">{{ $produksiTerbanyak->total_jumlah_formatted }} kg</strong> produksi</p>
                         </div>
                     </div>
                 </div>
@@ -210,14 +212,14 @@
             {{-- div penutup col --}}
         </div> 
         <div class="col-2 d-flex flex-column">
-            <div class="card h-50 d-flex justify-content-center align-items-center"
-            x-data="timeAgo('{{ $terakhirKali }}')" 
-            x-init="startTimer()">
-                <h6 class="text-muted">Terakhir Input</h6>
-                <h1 x-text="timeAgoText" class="text-primary mb-0"></h1>
-                <div x-show="exacTime" class="text-muted"></div>
+            <div class="card h-50 d-flex justify-content-center align-items-center">
+                <div class="text-center ">
+                    <small class="text-muted">Terakhir kali Update</small>
+                    <h5>{{ \Carbon\Carbon::parse($terakhirUpdate)->diffForHumans() }}</h5>
+                </div>
             </div>
             <div class="card h-50">
+                <small class="text-center my-2">Rata Rata Prediksi</small>
                 <div id="perbandinganAkurasiChart"></div>
             </div>
         </div>

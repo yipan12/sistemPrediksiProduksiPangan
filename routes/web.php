@@ -72,6 +72,12 @@ Route::delete('destroy/{id}', [perbandinganController::class, 'destroy'])->middl
 
 
 
+Route::get('/prediksiajacoba', function () {
+    return view('prediksi.Prediksi', [
+        'title' => 'coba',
+        'komoditas' => null
+    ]);
+})->name('predi')->middleware('auth');
 
 
 

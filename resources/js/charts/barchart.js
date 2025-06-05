@@ -2,7 +2,7 @@ import ApexCharts from "apexcharts";
 import { getChartData, setBarChart, getBarChart } from "./chartHelper.js";
 
 export function renderingBarChart(data = null) {
-    const { categories, series } = getChartData(data);
+    const { categories, series, dates } = getChartData(data);
 
     const options = {
         chart: {
@@ -35,8 +35,27 @@ export function renderingBarChart(data = null) {
             position: "bottom",
         },
         tooltip: {
-            y: {
-                formatter: (val) => `${val} unit`,
+            shared: true,
+            intersect: false,
+            custom: ({ series, dataPointIndex, w }) => {
+                const category = w.globals.labels[dataPointIndex];
+                const date = new Date(dates[dataPointIndex] || "");
+                const dateStr = isNaN(date)
+                    ? "Tanggal tidak tersedia"
+                    : date.toLocaleDateString("id-ID", {
+                          weekday: "long",
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                      });
+
+                let content = `<div style="padding:10px;font-family:sans-serif;">
+            <small >📅 ${dateStr}</small><hr style="margin:6px 0"/>`;
+                series.forEach((s, i) => {
+                    content += `${w.globals.seriesNames[i]}: <b>${s[dataPointIndex]} Kg</b><br/>`;
+                });
+
+                return content + "</div>";
             },
         },
     };

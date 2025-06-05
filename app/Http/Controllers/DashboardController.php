@@ -31,7 +31,8 @@ class DashboardController extends Controller
             'hasilAkurasi' => $this->getchartData(),
             'terakhirKali' => $this->getTerakkhirKaliProduksi(),
             'produk' => $this->getProduct(),
-            'akurasiRataRata' => $this->getAkurasiChart()
+            'akurasiRataRata' => $this->getAkurasiChart(),
+            'terakhirUpdate' => $this->TerakhirUpdate()
         ]);
     }
 
@@ -40,7 +41,7 @@ class DashboardController extends Controller
 
     private function getchartData() {
         return $hasilakurasi = \App\Models\PerbandinganPrediksi::where('user_id', auth()->id())
-        ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es')
+        ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es', 'target_prediksi')
         ->get();
     }
 
@@ -102,6 +103,14 @@ class DashboardController extends Controller
             return number_format($jumlah);
         }
 
+        
+    
+    private function TerakhirUpdate() {
+        return \App\Models\PerbandinganPrediksi::where('user_id', auth()->id())
+        ->orderBy('created_at', 'desc')
+        ->pluck('created_at')
+        ->first();
+    }
 
 
 // ini berupa colection oleh map

@@ -8,11 +8,133 @@
 @import "bootstrap/scss/bootstrap";
 
 .bg-gradient-success {
-    background: linear-gradient(135deg, #296a42 0%, #80ff8f 100%);
+    background: linear-gradient(135deg, #8ed07e 0%, #c4c4c4 100%);
 }
 
 .avatar-sm {
     width: 32px;
     height: 32px;
     font-size: 14px;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
+// sidebar
+.sidebar {
+    transition: all ease 0.3s;
+}
+
+.sidebar .nav-link {
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+
+.sidebar .nav-link:hover {
+    color: #3e9760 !important;
+    transform: translateX(2px);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar .nav-link.text-success {
+    background-color: rgba(25, 135, 84, 0.1);
+    border-left: 3px solid #198754;
+}
+
+/* card */
+.flip-container {
+    perspective: 1000px;
+    position: relative;
+    z-index: 1;
+}
+.flip-inner {
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.flip-front,
+.flip-back {
+    backface-visibility: hidden;
+    z-index: 2;
+}
+.flip-container button {
+    z-index: 10 !important; /* TAMBAHIN INI */
+}
+
+.flip-back {
+    transform: rotateY(180deg);
+}
+/* akhir card */
+
+.sumary-card {
+    cursor: pointer;
+}
+.gradient {
+    background: linear-gradient(-10deg, #93ff78, #5cceff) !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+}
+
+/* font */
+.poppins {
+    font-family: "Poppins", sans-serif;
+}
+.roboto {
+    font-family: "Roboto", sans-serif;
+}
+.ibm {
+    ffont-family: "IBM Plex Sans", sans-serif;
+}
+/* akhir font */
+.sidebar {
+    width: 250px;
+    transition: margin-left 0.3s ease;
+}
+.sidebar.collapsed {
+    margin-left: -250px;
+}
+.main {
+    transition: margin-left 0.3s ease;
+    width: 100%;
+}
+
+.main.full {
+    margin-left: 0;
+}
+
+.main:not(.full) {
+    margin-left: 250px;
+}
+.navbar {
+    border-bottom: 1px solid #ccc;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, #1698e9, #1655e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.skyblue-custoom {
+    background-color: #c8e8ff;
+}
+.skyblue-custoom:hover {
+    background-color: #c8e8ff;
+    border: 1px solid #c8e8ff;
+}
+/* Tambahkan di file CSS Anda */
+.pagination .page-link {
+    color: #28a745; /* Warna hijau Bootstrap */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.pagination .page-link:hover {
+    color: #218838; /* Hijau gelap saat hover */
+    background-color: #e9ecef;
 }

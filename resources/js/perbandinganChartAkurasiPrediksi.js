@@ -7,7 +7,7 @@ const series = akurasiRataRata.map((item) => item.akurasi);
 const options = {
     chart: {
         type: "bar",
-        height: 300,
+        height: 250,
         width: "100%",
     },
     series: [

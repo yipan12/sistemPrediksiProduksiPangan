@@ -34,13 +34,18 @@
     <div class="container-fluid mb-5">
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="card shadow-lg h-100 card-background ">
+                <div class="card shadow-lg h-100  ">
                     <img src="{{ asset("/asset/movingarrage.png") }}" class="card-img-top w-75 mx-auto mt-4" alt="...">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title fs-5 fw-bold">Moving Average</h5> 
                             <p class="btn skyblue-custoom text-white fw-bold">{{ $history }} Hasil Prediksi</p>
                         </div>
+                        {{-- progres bar --}}
+                        <div class="progress" style="height: 5px">
+                            <div class="progress-bar"></div>
+                        </div>
+                        {{-- akhir progres bar --}}
                         <p>Silahkan klik button “Lihat lebih” untuk melihat detail History prediksi</p>
                         <a href="{{ route('MovingarageIndex') }}" class="btn btn-success btn-sm">Lihat Lebih</a>
                     </div>
@@ -48,7 +53,7 @@
             </div>
             {{-- linear regresion tabel --}}
             <div class="col-md-4">
-                    <div class="card shadow-lg h-100 card-background">
+                    <div class="card shadow-lg h-100 ">
                         <img src="{{ asset("/asset/undraw_users-per-minute_eg97.png") }}" class="card-img-top  mx-auto mt-5" alt="...">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mt-4">
@@ -63,7 +68,7 @@
             </div>
             
             <div class="col-md-4">
-                <div class="card shadow-lg h-100 card-background" >
+                <div class="card shadow-lg h-100 " >
                     <img src="{{ asset("/asset/exponential.png") }}" class="card-img-top mx-auto w-75 mt-4" alt="...">
                     <div class="card-body">
                         <div class="d-flex justify-content-between mt-2">
@@ -78,11 +83,46 @@
         </div>
     </div>
     {{-- tabel --}}
-    <div class="card card-body shadow mt-4 card-background ">
+    <div class="card card-body shadow mt-4  ">
         <livewire:produksi-pangan-table />
     </div>
     {{-- akhir tabel produksi --}}
-    <div class="card card-body mt-3 shadow shadow-lg card-background">
+    <div class="card card-body mt-3 shadow shadow-lg ">
+
+        {{-- card info --}}
+        <div class="container">
+            <h1 class="fs-3 poppins ">Perbandingan Akurasi Prediksi</h1>
+            <p class="text-muted">Analisis perbandingan metode prediksi berdasarkan akurasi</p>
+
+            {{-- rata rata --}}
+            <div class="row mb-4">
+                <div class="col-4">
+                    <div class="border border-1 rounded text-center py-3 shadow bg-light">
+                        <h4 class="fs-5 ">Moving Average</h4>
+                        <strong class="fs-5">{{ number_format($rataRataPrediksi['moving_average'],2) }} %</strong>
+                        <small class="d-block text-muted">Akurasi rata-rata</small>
+                    </div>
+                </div>
+                {{-- linear regresion --}}
+                <div class="col-4">
+                    <div class="border border-1 rounded text-center py-3 shadow bg-light">
+                        <h4 class="fs-5 ">Linear Regresion</h4>
+                        <strong class="fs-5">{{ number_format($rataRataPrediksi['linear_regression'],2) }} %</strong>
+                        <small class="d-block text-muted">Akurasi rata-rata</small>
+                    </div>
+                </div>
+                {{-- exponential Regresion --}}
+                <div class="col-4">
+                    <div class="border border-1 rounded text-center py-3 shadow bg-light">
+                        <h4 class="fs-5 ">Exponential Smoothing</h4>
+                        <strong class="fs-5">{{ number_format($rataRataPrediksi['exponential_smoothing'],2) }} %</strong>
+                        <small class="d-block text-muted">Akurasi rata-rata</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- akhir card info --}}
+
         @if (session('hapus'))
             <div class="alert alert-success">
                 {{ session('hapus') }}
@@ -111,13 +151,57 @@
                 <tr class="text-center ibm">
                         <td>{{ $perbandingan->total() - $perbandingan->firstItem() - $key + 1 }}</td>
                         <td>{{ $data->produk }}</td>
-                        <td>{{ $data->produksi_aktual }}</td>
+                        <td>
+                            <span class="badge bg-dark-subtle">{{ $data->produksi_aktual }} Kg</span>
+                        </td>
                         <td>{{ $data->target_prediksi }}</td>
-                        <td>{{ $data->prediksi_ma === 0 ? '-' : $data->prediksi_ma}}</td>
-                        <td>{{ $data->prediksi_lr === 0 ? '--' : $data->prediksi_lr }}</td>
-                        <td>{{ $data->prediksi_Es === 0 ? '--' : $data->prediksi_Es }}</td>
-                        <td>{{ $data->hasil_terbaik }}</td>
-                        <td class="fw-semibold" style="color: {{ $data->akurasi_persen > 80.00 ? 'green' : 'red' }}">{{ $data->akurasi_persen }}%</td>
+                        <td>
+                            @if ($data->prediksi_ma === 0)
+                                <span class="text-muted">-</span>
+                            @else
+                                <span>{{ $data->prediksi_ma }}</span>
+                                <br><small class="text-muted">Selisih: {{ abs($data->produksi_aktual - $data->prediksi_ma) }}</small>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($data->prediksi_lr === 0)
+                                <span class="text-muted">-</span>
+                            @else
+                                <span>{{ $data->prediksi_lr }}</span>
+                                <br><small class="text-muted">Selisih: {{ abs($data->produksi_aktual - $data->prediksi_lr) }}</small>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($data->prediksi_Es === 0)
+                                <span class="text-muted">-</span>
+                            @else
+                                <span>{{ $data->prediksi_Es }}</span>
+                                <br><small class="text-muted">Selisih: {{ abs($data->produksi_aktual - $data->prediksi_Es) }}</small>
+                            @endif
+                        </td>
+                        <td>
+                            <span class="badge bg-success">{{ $data->hasil_terbaik }}</span>
+                        </td>
+                        {{-- hasil akurasi --}}
+                        <td >
+                           <div class="d-flex flex-column justify-content-center align-items-center">
+                             {{ $data->akurasi_persen }}%
+                            <div class="progress me-2 w-75" style="height: 8px;">
+                                    <div class="progress-bar {{ $data->akurasi_persen > 80.00 ? 'bg-success' : ($data->akurasi_persen > 60.00 ? 'bg-warning' : 'bg-danger' ) }}" style="width: {{ $data->akurasi_persen }}%"></div>
+                            </div>
+                           </div>
+                            @if($data->akurasi_persen > 90)
+                                <small class="badge bg-success">Sangat Baik</small>
+                            @elseif($data->akurasi_persen > 80)
+                                <small class="badge bg-warning">Baik</small>
+                            @elseif($data->akurasi_persen > 60)
+                                <small class="badge bg-orange">Lumayan</small>
+                            @else
+                                <small class="badge bg-danger">Buruk</small>
+                            @endif
+                        </td>
+                        {{-- akhir hasil akurasi --}}
+                        {{-- aksi --}}
                         <td>
                             <form action="{{ route('hapusPerbandingan', $data->id) }}" method="POST">
                                 @csrf

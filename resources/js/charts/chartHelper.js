@@ -23,7 +23,7 @@ function getChartData(data = null) {
     }
 
     const categories = hasilAkurasi.map((item) => item.produk);
-
+    const dates = hasilAkurasi.map((item) => item.target_prediksi);
     const series = [
         {
             name: "Produksi Aktual",
@@ -43,7 +43,7 @@ function getChartData(data = null) {
         },
     ];
 
-    return { categories, series };
+    return { categories, series, dates };
 }
 
 function setLineChart(chart) {

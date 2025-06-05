@@ -54,7 +54,7 @@
             <div class="col-md-3">
                 <div class="border rounded p-2 text-center py-3">
                     <small class="text-muted d-block">Update Terakhir</small>
-                    <strong>{{ \Carbon\Carbon::parse($updateTerakhir)->diffForHumans() }}</strong>
+                <strong>{{ \Carbon\Carbon::parse($updateTerakhir)->diffForHumans() }}</strong>
                 </div>
             </div>
         </div>

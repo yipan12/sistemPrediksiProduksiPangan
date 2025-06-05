@@ -10,8 +10,10 @@
     {{-- acount --}}
     <div class="w-full mt-2 poppins">
          <i class="fas fa-user text-center d-block mb-2 fs-2 text-gradient"></i>
-         <h4 class="text-black mb-4 text-center text-bold text-gradient">{{ Auth::user()->name ?? 'Guest' }}</h4>
+         <h4 class="text-black mb-0 text-center text-bold text-gradient">{{ Auth::user()->name ?? 'Guest' }}</h4>
+         <small class="text-center d-block mb-4 text-muted poppins">{{ Auth::user()->email }}</small>
     </div>
+    <hr class="text-gray-400">
     {{-- akhir acount --}}
     <div class="flex-grow-1">
         <ul class="nav flex-column ">
@@ -27,22 +29,14 @@
                     </a>
                 </li>
                 {{-- dropdown menu prediksi --}}
-                <li class="nav-item mb-2">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('prediksi-pangan*') ? 'text-success fw-bold' : 'text-black' }}" 
-                    href="#" 
-                    id="dropdownPrediksi" 
-                    role="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#submenuPrediksi" 
-                    aria-expanded="false" 
-                    aria-controls="submenuPrediksi">
-                        <i class="fas fa-cog me-2"></i> Prediksi
-                    </a>
-                    <ul class="collapse list-unstyled ps-4" id="submenuPrediksi">
-                        <li>
-                            <a class="nav-link {{ request()->routeIs('prediksi-pangan') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('prediksi-pangan') }}">
-                                <i class="fas fa-chart-line me-2"></i> Moving averrage
-                            </a>
+               <div>
+                 {{-- area Prediksi --}}
+                <h4 class="fs-5 ms-2 mb-2">Prediksi</h4>
+                {{-- akhir area prediksi --}}
+                  <li>
+                        <a class="nav-link {{ request()->routeIs('prediksi-pangan') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('prediksi-pangan') }}">
+                            <i class="fas fa-chart-line me-2"></i> Moving averrage
+                        </a>
                         </li>
                         <li>
                             <a class="nav-link {{ request()->routeIs('linearView') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('linearView') }}">
@@ -51,18 +45,18 @@
                         </li>
                         <li>
                             <a class="nav-link {{ request()->routeIs('expoIndex') ? 'text-success fw-bold' : 'text-black' }}" href="{{ route('expoIndex') }}">
-                                <i class="fas fa-chart-area me-2"></i> Exponential
-                            </a> 
-                        </li>
-                    </ul>
+                            <i class="fas fa-chart-area me-2"></i> Exponential
+                        </a> 
+                     </li>
                 </li>
+               </div>
             </ul>
         </div>
         {{-- dropdown menu akhir prediksi --}}
         <div class="mt-auto">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-danger w-100">
+                <button type="submit" class="btn btn-outline-danger w-100">
                     <i class="fas fa-sign-out-alt me-2"></i> Logout
                 </button>
             </form>

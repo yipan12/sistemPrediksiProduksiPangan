@@ -33,7 +33,8 @@ class ProduksiPanganController extends Controller
             'history' => $history,
             'historylr' => $historylr,
             'perbandingan' => $perbandinganPrediksi,
-            'historyEs' => $historyEs
+            'historyEs' => $historyEs,
+            'rataRataPrediksi' => $this->getAkurasiPrediksi()
         ]);
     }
 
@@ -53,9 +54,11 @@ class ProduksiPanganController extends Controller
         'produk' => 'required|string|max:255',
         'jumlah' => 'required|integer',
         'tanggal' => 'required|date',
-        'harga' => 'required|numeric'
+        'harga' => 'required|numeric',
+        'user_id' => 'required'
        ]);
 
+      
        $validatedData['user_id'] = auth()->id(); 
        $produksi = ProduksiPangan::create($validatedData);
        $this->checkAndSaveAkurasi($produksi);
@@ -83,6 +86,22 @@ class ProduksiPanganController extends Controller
         ProduksiPangan::findOrFail($id)->update($validatedData);
         return redirect()->route('produksi.index')->with('status', 'Update berhasil');
     }
+
+  
+
+   private function getAkurasiPrediksi() {
+    $userId = auth()->id();
+
+    return [
+        'moving_average' => \App\Models\History::where('user_id', $userId)->avg('akurasi') ?? 0,
+        'exponential_smoothing' => \App\Models\HistoryEs::where('user_id', $userId)->avg('akurasi') ?? 0,
+        'linear_regression' => \App\Models\Historylr::where('user_id', $userId)->avg('akurasi') ?? 0,
+    ];
+}
+
+
+
+
 // hapus
     public function destroy(ProduksiPangan $produksiPangan, $id)
     {
@@ -169,7 +188,7 @@ class ProduksiPanganController extends Controller
 
         $akurasiMA = $perbandinganData['akurasi_ma'] ?? 0;
         $akurasiLR = $perbandinganData['akurasi_lr'] ?? 0;
-        $akurasiES = $perbandinganData['akurasi_es'] ?? 0;
+        $akurasiES = $perbandinganData['akurasi_Es'] ?? 0;
 
          if ($akurasiMA >= $akurasiLR && $akurasiMA >= $akurasiES) {
             $perbandinganData['hasil_terbaik'] = 'Moving Average';
