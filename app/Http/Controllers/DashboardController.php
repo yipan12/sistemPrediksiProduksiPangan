@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
     private function getchartData() {
         return $hasilakurasi = \App\Models\PerbandinganPrediksi::where('user_id', auth()->id())
-        ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es', 'target_prediksi')
+        ->select('produk', 'produksi_aktual', 'prediksi_ma', 'prediksi_lr', 'prediksi_Es', 'target_prediksi', 'hasil_terbaik')
         ->get();
     }
 

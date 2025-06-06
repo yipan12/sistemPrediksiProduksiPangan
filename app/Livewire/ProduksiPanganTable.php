@@ -21,7 +21,7 @@ class ProduksiPanganTable extends Component
         $query = ProduksiPangan::where('user_id', auth()->id());
         
         if (!empty($this->search)) {
-            $query->where('produk', 'like', '%' . $this->search . '%');
+            $query->where('produk', 'like', '%'. $this->search .'%');
         }
         
         $rataRata = round($query->avg('harga'));
