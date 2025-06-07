@@ -12,6 +12,21 @@
             {{ session('status') }}
         </div>
     @endif
+
+    <div class="card shadow-sm mb-3">
+    <div class="card-body bg-light">
+        <h6 class="card-title text-primary"><i class="bi bi-info-circle"></i> Penjelasan Metode Linear Regression</h6>
+        <p class="mb-0">
+            <strong>Linear Regression</strong> adalah metode statistik yang digunakan untuk memodelkan hubungan antara <strong>waktu (sebagai variabel X)</strong> dan <strong>jumlah produksi (sebagai variabel Y)</strong>.
+            Metode ini membuat garis lurus yang menunjukkan arah tren data, lalu digunakan untuk <strong>memprediksi nilai di masa depan</strong>.
+            <br><br>
+            Cocok digunakan untuk data produksi yang <strong>mengalami kenaikan atau penurunan secara konsisten</strong> dari waktu ke waktu. 
+            Misalnya: prediksi produksi beras yang setiap tahun terus meningkat.
+        </p>
+    </div>
+</div>
+
+
 <div class="container">
     <div class="card ">
         <div class="card-header bg-dark text-white">

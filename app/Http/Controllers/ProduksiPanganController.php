@@ -55,7 +55,6 @@ class ProduksiPanganController extends Controller
         'jumlah' => 'required|integer',
         'tanggal' => 'required|date',
         'harga' => 'required|numeric',
-        'user_id' => 'required'
        ]);
 
       
@@ -74,19 +73,46 @@ class ProduksiPanganController extends Controller
         ]);
     }
 
-    public function update(Request $request,  $id)
+   public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-             'produk' => "required|max:255",
-             'jumlah' => 'required|integer',
-             'tanggal' => 'required|date',
-             'harga' => 'required|numeric'
+            'produk' => "required|max:255",
+            'jumlah' => 'required|integer',
+            'tanggal' => 'required|date',
+            'harga' => 'required|numeric'
         ]);
 
-        ProduksiPangan::findOrFail($id)->update($validatedData);
+        $produksi = ProduksiPangan::findOrFail($id);
+        
+        
+        $produksi->update($validatedData);
+        
+        
+        $produksi->refresh();
+        
+        
+        $this->updateOrCreateAkurasi($produksi);
+        
         return redirect()->route('produksi.index')->with('status', 'Update berhasil');
     }
 
+
+    private function updateOrCreateAkurasi($produksi)
+{
+    $tanggalProduksi = Carbon::parse($produksi->tanggal);
+    $bulanproduksi = $this->getNamaBulan($tanggalProduksi->month);
+    $tahunProduksi = $tanggalProduksi->year;
+    $periode = $bulanproduksi . " " . $tahunProduksi;
+
+   
+    PerbandinganPrediksi::where('user_id', auth()->id())
+        ->where('produk', $produksi->produk)
+        ->where('target_prediksi', $periode)
+        ->delete();
+    
+    
+    $this->checkAndSaveAkurasi($produksi);
+}
   
 
    private function getAkurasiPrediksi() {

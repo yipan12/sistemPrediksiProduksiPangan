@@ -11,6 +11,19 @@
             {{ session('status') }}
         </div>
     @endif
+        <div class="card shadow-sm mb-3">
+    <div class="card-body bg-light">
+        <h6 class="card-title text-primary"><i class="bi bi-info-circle"></i> Penjelasan Metode Exponential Smoothing</h6>
+        <p class="mb-0">
+            <strong>Exponential Smoothing</strong> adalah metode peramalan yang menggunakan <strong>bobot lebih besar untuk data terbaru</strong>. 
+            Ini artinya, data yang lebih baru dianggap lebih penting dalam proses prediksi.
+            <br><br>
+            Cocok digunakan untuk memprediksi data produksi yang <strong>sering berubah-ubah atau tidak stabil</strong>. 
+            Contohnya: produksi sayur mayur yang bisa naik turun tergantung musim atau cuaca.
+        </p>
+    </div>
+</div>
+
     {{-- akhir eror --}}
     <div class="container">
         <div class="card">

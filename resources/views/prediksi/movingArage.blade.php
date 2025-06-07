@@ -22,6 +22,19 @@
     @endif
     {{-- akhir eror kurang dri 3 --}}
     {{-- CHART SECTION --}}
+    <div class="card shadow-sm mb-3">
+        <div class="card-body bg-light">
+            <h6 class="card-title text-primary"><i class="bi bi-info-circle"></i> Penjelasan Metode Moving Average</h6>
+            <p class="mb-0">
+                <strong>Moving Average</strong> adalah metode sederhana yang digunakan untuk memprediksi nilai di masa depan berdasarkan <strong>rata-rata data sebelumnya</strong>. 
+                Dalam prediksi produksi, metode ini menggunakan data dari beberapa bulan terakhir untuk memperkirakan produksi bulan berikutnya.
+                <br><br>
+                Metode ini cocok untuk data produksi yang <strong>tidak terlalu banyak berubah atau tidak memiliki tren khusus</strong>. 
+                Contohnya: memprediksi hasil panen bulanan untuk komoditas yang produksinya stabil.
+            </p>
+            </div>
+        </div>
+
     <div class="card">
         <div class="card-header bg-dark text-white">
             <strong>Visualisasi Prediksi (Moving Average)</strong>
