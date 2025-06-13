@@ -82,6 +82,7 @@
                             
                         </div>
 
+
                         <!-- Tombol dan link -->
                         <div class="text-center text-lg-start">
                             <button type="submit" class="btn btn-success w-100"
@@ -89,6 +90,7 @@
                             <p class="small fw-bold mt-2 pt-1 mb-0">Gak punya akun? 
                                 <a href="/register" class="link-danger fw-bold">Regist di sini!!</a>
                             </p>
+                            </div>
                         </div>
                     </form>
                 </div>

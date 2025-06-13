@@ -17,7 +17,7 @@
         <p class="mb-0">
             <strong>Exponential Smoothing</strong> adalah metode peramalan yang menggunakan <strong>bobot lebih besar untuk data terbaru</strong>. 
             Ini artinya, data yang lebih baru dianggap lebih penting dalam proses prediksi.
-            <br><br>
+            <br>
             Cocok digunakan untuk memprediksi data produksi yang <strong>sering berubah-ubah atau tidak stabil</strong>. 
             Contohnya: produksi sayur mayur yang bisa naik turun tergantung musim atau cuaca.
         </p>

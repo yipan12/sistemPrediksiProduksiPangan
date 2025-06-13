@@ -175,7 +175,9 @@
                 @foreach ($perbandingan as $key => $data )
                 <tr class="text-center ibm">
                         <td>{{ $perbandingan->total() - $perbandingan->firstItem() - $key + 1 }}</td>
-                        <td>{{ $data->produk }}</td>
+                        <td>
+                            {{ $data->produk }}    
+                        </td>
                         <td>
                             <span class="badge bg-dark-subtle">{{ $data->produksi_aktual }} Kg</span>
                         </td>
@@ -206,6 +208,7 @@
                         </td>
                         <td>
                             <span class="badge bg-success">{{ $data->hasil_terbaik }}</span>
+                            <small class="d-block">{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</small>
                         </td>
                         {{-- hasil akurasi --}}
                         <td >

@@ -21,7 +21,7 @@
     {{-- akhir style --}}
     <link rel="icon" href="{{ asset('asset/favicon.png') }}" type="image/png">
 </head>
-<body class="@yield('body-class')" style="margin: 0">
+<body class="@yield('body-class')" style="margin: 0; webkit-font-smoothing: auto;">
         <div class="wrapper d-flex ">
             {{-- Sidebar --}}
             <div >

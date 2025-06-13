@@ -45,7 +45,7 @@ class ExponentialSmoothingHistoris extends Component
         if(!empty($this->akurasi)){
             $query->where('akurasi', '>=', $this->akurasi);
         }
-        $historis = $query->orderBy('periode_prediksi')->paginate(12);
+        $historis = $query->orderBy('created_at', 'desc')->paginate(12);
         return view('livewire.exponential-smoothing-historis', [
             'historis' => $historis
         ]);

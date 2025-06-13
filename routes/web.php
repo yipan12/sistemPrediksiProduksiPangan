@@ -69,7 +69,17 @@ Route::post('SimpanEs', [EsHistorisController::class, 'simpanEsHistory'])->middl
 Route::delete('delete/{id}', [EsHistorisController::class, 'destroy'])->middleware('auth')->name('esHapus');
 // route hapus
 Route::delete('destroy/{id}', [perbandinganController::class, 'destroy'])->middleware('auth')->name('hapusPerbandingan');
-
+// login lupa password
+route::get('lupaPassword', [LoginController::class, 'showForgotEmail'])->middleware('guest')->name('lupaPassword');
+Route::post('/forgot-password', [LoginController::class, 'sendResetLinkEmail'])
+    ->name('password.email')
+    ->middleware('guest');
+Route::get('/reset-password/{token}', [LoginController::class, 'showResetPasswordForm'])
+    ->name('password.reset')
+    ->middleware('guest');
+Route::post('/reset-password', [LoginController::class, 'resetPassword'])
+    ->name('password.update')
+    ->middleware('guest');
 
 
 

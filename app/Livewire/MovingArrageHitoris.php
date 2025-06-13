@@ -48,7 +48,7 @@ class MovingArrageHitoris extends Component
             $query->where('akurasi', '>=', $this->akurasi);
         }
 
-        $historis = $query->orderBy('periode_prediksi')->paginate(12);
+        $historis = $query->orderBy('tanggal_prediksi', 'desc')->paginate(12);
         return view('livewire.moving-arrage-hitoris',[
             'historis' => $historis
         ]);

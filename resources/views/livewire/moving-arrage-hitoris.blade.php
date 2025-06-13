@@ -107,10 +107,18 @@
                         <span class="fw-semibold">{{ $data->produk }}</span>
                     </div>
                 </td>
-                <td>{{ $data->jumlah_1 }}</td>
-                <td>{{ $data->jumlah_2 }}</td>
-                <td>{{ $data->jumlah_3 }}</td>
-                <td>{{ $data->prediksi }}</td>
+                <td>
+                    <span class="badge bg-light text-dark">{{ $data->jumlah_1 }} Kg</span>
+                </td>
+                <td>
+                    <span class="badge bg-light text-dark">{{ $data->jumlah_2 }} Kg</span>
+                </td>
+                <td>
+                    <span class="badge bg-light text-dark">{{ $data->jumlah_3 }} Kg</span>
+                </td>
+                <td>
+                    <span class="badge bg-success ">{{ $data->prediksi }} Kg</span>
+                </td>
                 <td class="text-center">
                     <div class="d-inline-flex align-items-center justify-content-center gap-2 px-2 py-1 rounded"
                         style="background-color: {{ $warnaBg }}; color: {{ $text }};">
@@ -118,7 +126,9 @@
                         <span>{{ $data->akurasi > 0 ? $data->akurasi . '%' : '-' }}</span>
                     </div>
                 </td>
-                <td class="text-center">{{ $data->tanggal_prediksi->format('Y-m-d') }}</td>
+                <td class="text-center">
+                    <span>{{ $data->tanggal_prediksi->format('Y-m-d') }}</span>
+                </td>
                 <td><span class="badge bg-info">{{ $data->periode_prediksi }}</span></td>
                 <td>
                     <form action="{{ route('hapusMaIndex', $data->id) }}" method="post">

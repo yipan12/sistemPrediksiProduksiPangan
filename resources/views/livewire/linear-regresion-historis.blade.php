@@ -66,24 +66,26 @@
         $text = '';
 
         if ($data->akurasi > 80) {
-            $warnaBg = '#d4f8d4'; // hijau muda
+            $warnaBg = '#d4f8d4'; 
             $ikon = 'bi-check-circle-fill';
-            $text = '#2e8b57'; // hijau teks
+            $text = '#2e8b57'; 
         } elseif ($data->akurasi >= 70) {
-            $warnaBg = '#fff7d1'; // kuning muda
+            $warnaBg = '#fff7d1'; 
             $ikon = 'bi-exclamation-circle-fill';
-            $text = '#e8c156'; // kuning teks
+            $text = '#e8c156'; 
         } elseif ($data->akurasi > 0) {
-            $warnaBg = '#ffe5e5'; // merah muda
+            $warnaBg = '#ffe5e5'; 
             $ikon = 'bi-x-circle-fill';
-            $text = '#e85656'; // merah teks
+            $text = '#e85656'; 
         }
     @endphp
 
                 <tr class="text-center">
                     <td>{{ $historis->total() - $historis->firstItem() - $key + 1  }}</td>
                     <td class="text-start text-capitalize"> <i class="bi bi-box text-primary fs-5 me-2"></i> {{ $data->produk }}</td>
-                    <td>{{ $data->prediksi }}</td>
+                    <td>
+                        <span class="badge bg-success">{{ $data->prediksi }} Kg</span>
+                    </td>
                     <td class="text-center">
                         <div class="d-inline-flex align-items-center justify-content-center gap-2 px-2 py-1 rounded"
                             style="background-color: {{ $warnaBg }}; color: {{ $text }};">
