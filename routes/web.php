@@ -1,25 +1,22 @@
 <?php
 
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Auth;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProduksiPanganExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HistorisController;
-use App\Http\Controllers\PrediksiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EsHistorisController;
-use App\Http\Controllers\exponentialSmoothing;
-use App\Http\Controllers\exponentialSmoothingController;
 use App\Http\Controllers\lrHistorisController;
 use App\Http\Controllers\MaHistorisController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\MovingArrageController;
+use App\Http\Controllers\perbandinganController;
 use App\Http\Controllers\ProduksiPanganController;
 use App\Http\Controllers\LinearRegresionController;
-use App\Http\Controllers\perbandinganController;
-use App\Models\HistoryEs;
-use App\Models\PerbandinganPrediksi;
-use App\Models\ProduksiPangan;
+use App\Http\Controllers\exponentialSmoothingController;
+use App\Http\Controllers\landingPagesController;
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +32,14 @@ use App\Models\ProduksiPangan;
 // view
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-
+// Landing
+Route::get('/', [landingPagesController::class, 'index'])->name('landing')->middleware('guest');
 // login
-Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/loginIndex', [LoginController::class, 'index'])->name('loginIndex')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest')->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 // register
-Route::get('/register', [RegistrasiController::class, 'index'])->middleware('guest');
+Route::get('/registrasi.index', [RegistrasiController::class, 'index'])->name('registrasi.index')->middleware('guest');
 Route::post('/register', [RegistrasiController::class, 'store']);
 // data
 // route produksi
@@ -81,9 +79,12 @@ Route::post('/reset-password', [LoginController::class, 'resetPassword'])
     ->name('password.update')
     ->middleware('guest');
 
+Route::get('/export-produksi', function () {
+    return Excel::download(new ProduksiPanganExport, 'produksi-pangan.xlsx');
+})->name('export.produksi')->middleware('auth');
+
+Route::get('/export-produksi-pdf', [LaporanController::class, 'exportPdf'])
+    ->name('export.produksi.pdf')
+    ->middleware('auth');
 
 
-
-
-
- 

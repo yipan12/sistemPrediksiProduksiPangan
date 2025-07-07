@@ -18,7 +18,7 @@
         {{-- total prediksi --}}
         <div class="col-md-6 d-flex justify-content-end">
             <div>
-                <a href="" class="btn btn-dark text-white poppins fw-bold">Lihat Prediksi</a>
+                <a href="{{ route('produksi.index') }}" class="btn btn-dark text-white poppins fw-bold">Lihat Prediksi</a>
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
                     <div class="flip-front card mb-3 rounded-3 shadow-sm border-0 gradient sumary-card h-100 position-absolute top-0 start-0 w-100">
                         <div class="card-body d-flex justify-content-between align-items-center ms-2 gap-2 text-white">
                             <div class="d-flex flex-column justify-content-end">
-                                <h4 class="poppins mb-0 mt-1 fs-4 text-capitalize">{{ $produksiTerbanyak['produk'] }}</h4>
+                                <h4 class="poppins mb-0 mt-1 fs-4 text-capitalize">{{ $produksiTerbanyak['produk'] ?? '0' }}</h4>
                                 <p class="small poppins">Komoditas yang banyak di produksi</p>
                             </div>
                             <div class="d-flex align-items-center">
@@ -159,7 +159,7 @@
                     {{-- belakang --}}
                     <div class="flip-back card mb-3 rounded-3 shadow-sm border-0 gradient sumary-card h-100 position-absolute top-0 start-0 w-100">
                         <div class="card-body d-flex align-items-center justify-content-center text-white">
-                            <p class="mb-0"> Komoditas <strong class="text-capitalize ">{{ $produksiTerbanyak->produk }}</strong>  merupakan komoditas terbanyak di produksi sejauh ini hingga mencapai <strong class="text-dark">{{ $produksiTerbanyak->total_jumlah_formatted }} kg</strong> produksi</p>
+                            <p class="mb-0"> Komoditas <strong class="text-capitalize ">{{ $produksiTerbanyak->produk ?? '0' }}</strong>  merupakan komoditas terbanyak di produksi sejauh ini hingga mencapai <strong class="text-dark">{{ $produksiTerbanyak->total_jumlah_formatted ?? 'tidak ada'}} kg</strong> produksi</p>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,6 @@
     </div>
     {{-- akhir dari card --}}
 
-    
 
 
     <div class="row py-2 g-0">

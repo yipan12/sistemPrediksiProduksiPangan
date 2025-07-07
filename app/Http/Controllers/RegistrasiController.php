@@ -25,6 +25,6 @@ class RegistrasiController extends Controller
         User::create($ValidatedData);
         
 
-        return redirect('/')->with('status', 'Registrasi berhasil');
+        return redirect('loginIndex')->with('status', 'Registrasi berhasil');
     }
 }

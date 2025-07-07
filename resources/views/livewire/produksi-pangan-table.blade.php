@@ -47,7 +47,7 @@
             <div class="col-md-3">
                 <div class="border rounded p-2 text-center py-3">
                     <small class="text-muted d-block">Produksi Terbanyak</small>
-                    <strong class="text-capitalize">{{ $produksiTerbanyak['produk'] }}</strong>
+                    <strong class="text-capitalize">{{ $produksiTerbanyak['produk'] ?? 'tidak ada' }}</strong>
                 </div>
             </div>
             {{-- update terakhir --}}
@@ -165,20 +165,32 @@
         </table>
     </div>
     <div class="d-flex justify-content-between align-items-center">
-    <div>
-        <a href="{{ route('produksi.create') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Tambah Data
-        </a>
-    </div>
-
-    {{-- Pagination --}}
-    <div>
-        @if($products->hasPages())
-            <div class="mt-3">
-                {{ $products->links() }}
+        <div class="d-flex align-items-center gap-3">
+            <div>
+                <a href="{{ route('produksi.create') }}" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Tambah Data
+                </a>
             </div>
-        @endif
+            <div>
+                <a href="{{ route('export.produksi') }}" class="btn btn-success">
+                    <i class="fa fa-file-excel"></i> Export ke Excel
+                </a>
+            </div>
+            <div>
+                <a href="{{ route('export.produksi.pdf') }}" class="btn btn-success ">
+                    <i class="fa fa-file-pdf"></i> Export PDF
+                </a>
+            </div>
+        </div>
+
+        {{-- Pagination --}}
+        <div>
+            @if($products->hasPages())
+                <div class="mt-3">
+                    {{ $products->links() }}
+                </div>
+            @endif
+        </div>
     </div>
-</div>
 
 </div>

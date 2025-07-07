@@ -76,7 +76,7 @@
                         <div class="text-center text-lg-start">
                             <button type="submit" class="btn btn-success w-100">Register</button>
                             <p class="small fw-bold mt-2 pt-1 mb-0 poppins">Sudah punya akun?
-                                <a href="/" class="link-danger fw-bold poppins">Login di sini!</a>
+                                <a href="{{ route('loginIndex') }}" class="link-danger fw-bold poppins">Login di sini!</a>
                             </p>
                         </div>
                     </form>

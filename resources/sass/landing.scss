@@ -1,0 +1,340 @@
+.poppins {
+    font-family: "Poppins", sans-serif;
+    font-size: large;
+
+    @media (max-width: 576px) {
+        font-size: 1rem; // lebih kecil di mobile
+    }
+}
+
+.dmSerif {
+    font-family: "DM Serif Text", serif;
+
+    @media (max-width: 576px) {
+        font-size: 2rem; // agar heading tidak terlalu besar di HP
+    }
+}
+
+#header:hover {
+    color: rgb(7, 152, 5) !important;
+}
+
+/* Hilangkan border-radius gambar di layar kecil */
+@media (max-width: 576px) {
+    img.rounded-hero {
+        border-radius: 0 !important;
+    }
+}
+
+.pertanyaan {
+    font-size: 50px;
+}
+
+@media (max-width: 576px) {
+    .pertanyaan {
+        font-size: 2rem;
+    }
+}
+
+img.profile {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modern card design */
+.content-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #28a745, #20c997, #17a2b8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.content-card:hover::before {
+    opacity: 1;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced images */
+.enhanced-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.enhanced-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(40, 167, 69, 0.1),
+        rgba(23, 162, 184, 0.1)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.enhanced-image:hover::before {
+    opacity: 1;
+}
+
+.enhanced-image img {
+    transition: transform 0.4s ease;
+}
+
+.enhanced-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Section styling */
+.about-section {
+    background: linear-gradient(135deg, #f7fff7 0%, #e8f5e8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+            circle at 20% 20%,
+            rgba(40, 167, 69, 0.05) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(23, 162, 184, 0.05) 0%,
+            transparent 50%
+        );
+    pointer-events: none;
+}
+
+/* Icon styling */
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease;
+}
+
+.icon-wrapper:hover {
+    transform: rotate(360deg) scale(1.1);
+    box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+}
+
+.icon-wrapper i {
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Typography enhancements */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 2px;
+}
+
+.pertanyaan {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #495057;
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .pertanyaan {
+        font-size: 1.3rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+}
+
+/* Background Styles - Hijau dengan Animasi */
+
+.accordion-button:not(.collapsed) {
+    background-color: #198754 !important;
+    color: white !important;
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+    border-color: #198754;
+}
+
+.accordion-button::after {
+    transition: transform 0.3s ease;
+}
+
+.accordion-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(25, 135, 84, 0.15) !important;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-title {
+    position: relative;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #198754, #20c997);
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .d-flex.gap-3 {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .d-flex.gap-3 .btn {
+        width: 100%;
+    }
+}
+
+.team-title {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 2rem;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.team-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.3)
+    );
+    border-radius: 2px;
+}

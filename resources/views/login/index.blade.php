@@ -84,14 +84,18 @@
 
 
                         <!-- Tombol dan link -->
-                        <div class="text-center text-lg-start">
+                         <div class="text-center text-lg-start">
                             <button type="submit" class="btn btn-success w-100"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                            <p class="small fw-bold mt-2 pt-1 mb-0">Gak punya akun? 
-                                <a href="/register" class="link-danger fw-bold">Regist di sini!!</a>
-                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-2 pt-1">
+                                <p class="small fw-bold mb-0">Gak punya akun? 
+                                    <a href="{{ route('registrasi.index') }}" class="link-danger fw-bold">Regist di sini!!</a>
+                                </p>
+                                <a href="{{ route('landing') }}" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-arrow-left me-1"></i> Kembali
+                                </a>
                             </div>
-                        </div>
+                            </div>
                     </form>
                 </div>
             </div>

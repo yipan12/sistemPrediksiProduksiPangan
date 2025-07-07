@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Dashboard;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 

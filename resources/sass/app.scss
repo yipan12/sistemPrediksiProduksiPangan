@@ -3,12 +3,13 @@
 
 // Variables
 @import "variables";
+@import "landing";
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
 
 .bg-gradient-success {
-    background: linear-gradient(135deg, #8ed07e 0%, #c4c4c4 100%);
+    background: linear-gradient(135deg, #b8e5b7 0%, #a3e7c1 50%, #94ddb5 100%);
 }
 
 .avatar-sm {

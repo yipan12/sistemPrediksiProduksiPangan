@@ -179,7 +179,7 @@
                             {{ $data->produk }}    
                         </td>
                         <td>
-                            <span class="badge bg-dark-subtle">{{ $data->produksi_aktual }} Kg</span>
+                            <span class="badge bg-dark-subtle text-dark">{{ $data->produksi_aktual }} Kg</span>
                         </td>
                         <td>{{ $data->target_prediksi }}</td>
                         <td>

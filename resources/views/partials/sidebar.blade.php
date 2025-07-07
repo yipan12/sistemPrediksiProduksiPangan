@@ -11,7 +11,7 @@
     <div class="w-full mt-2 poppins">
          <i class="fas fa-user text-center d-block mb-2 fs-2 text-gradient"></i>
          <h4 class="text-black mb-0 text-center text-bold text-gradient">{{ Auth::user()->name ?? 'Guest' }}</h4>
-         <small class="text-center d-block mb-4 text-muted poppins">{{ Auth::user()->email }}</small>
+         <small class="text-center d-block mb-4 text-muted ">{{ Auth::user()->email }}</small>
     </div>
     <hr class="text-gray-400">
     {{-- akhir acount --}}
